@@ -1,0 +1,184 @@
+<div class="master">
+    <div class="close-button d-flex justify-content-end">
+    <button class="btn-close1" mat-icon-button (click)="closeDialog()">X</button>
+</div>
+<div class="container-fluid view-order">
+
+    <div>
+      <div class="d-flex align-items-center">
+        <mat-icon
+          style="
+            font-size: 35px;
+            color: #d3d3d4;
+            margin-right: 10px;
+            width: 35px;
+            height: 35px;
+          "
+          >shopping_basket</mat-icon
+        >
+        <h5 class="mb-0" style="font-weight: 700">
+         Daily Sale Details
+        </h5>
+      </div>
+
+
+    </div>
+
+    <div class="row" style="margin: 30px 0;">
+
+      <div class="col-sm col-md-3" style="padding-left: 0px !important;">
+        <span style="font-weight: bold;">Store ID:</span>
+        {{ inputObj.Store_ID }}
+      </div>
+
+      <div class="col-sm col-md-3">
+        <span style="font-weight: bold;">Store Name:</span>
+        {{ inputObj.Store_Name }}
+      </div>
+
+      <div class="col-sm col-md-3">
+        <span style="font-weight: bold;">Date:</span>
+        {{ sale_date | date:'dd-MMM-yyyy' }}
+      </div>
+
+    </div>
+
+    <div class="mat-elevation-z8 row" style="overflow: auto; flex-grow: 1">
+
+      <div class="col-sm col-md">
+        <table
+        mat-table
+        matTableExporter
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+        #exporter="matTableExporter"
+      >
+        <!-- Order Number Column -->
+        <ng-container matColumnDef="POS_ID">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by POS_ID"
+          >
+          POS ID
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.POS_ID }}
+          </td>
+        </ng-container>
+
+        <!-- Order Date Column -->
+        <ng-container matColumnDef="Tender">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Tender"
+          >
+            Tender
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{  element.Tender  }}
+          </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="Peak_Hour">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Peak_Hour"
+          >
+           Peak Hour
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.Peak_Hour }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Total_Sales_Amount">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Total_Sales_Amount"
+          >
+           Total_Sales_Amount
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.Total_Sales_Amount }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Total_Transactions">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Total_Transactions"
+          >
+           Total Transactions
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.Total_Transactions }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Total_Items_Sold">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Total_Items_Sold"
+          >
+           Total Items Sold
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.Total_Items_Sold }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Total_Discount">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Total_Discount"
+          >
+           Total Discount
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.Total_Discount }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Total_Refunds_Amount">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Total_Refunds_Amount"
+          >
+           Total Refunds Amount
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.Total_Refunds_Amount }}</td>
+        </ng-container>
+
+       
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator
+      [pageSizeOptions]="[50, 100, 200]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+      </div>
+
+      
+    </div>
+    
+  </div>
+
+
+</div>
+
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>

@@ -1,0 +1,223 @@
+<div class="main-content" style="display: flex; flex-direction: column">
+  <section class="container-fluid white-bg">
+    <form>
+      <div>
+        <div class="row">
+
+          <div class="col-sm col-md-4">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>From Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="fromDatePicker"
+                [(ngModel)]="from_date"
+                name="from_date"
+                (click)="fromDatePicker.open()"
+                placeholder="Choose a From date"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="fromDatePicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #fromDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-sm col-md-4">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>To Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="toDatePicker"
+                placeholder="Choose a To date"
+                [(ngModel)]="to_date"
+                name="to_date"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="toDatePicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #toDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-end">
+          <div class="col-md-auto col-sm-2 col">
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="searchOrders()"
+            >
+              Search Orders
+            </button>
+          </div>
+          <div class="col-md-auto col-sm-2 col">
+            <button
+              type="button"
+              (click)="exporter.exportTable('csv')"
+              class="btn btn-warning"
+            >
+              Export
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  <div
+    class="container-fluid product mt-5"
+    style="display: flex; flex-direction: column; flex-grow: 1"
+  >
+    <div class="w-100 d-flex justify-content-end">
+      <mat-form-field class="input-search" style="float: right; width: 350px">
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+      </mat-form-field>
+    </div>
+    <div class="mat-elevation-z8" style="overflow: auto; flex-grow: 1">
+      <table
+        mat-table
+        matTableExporter
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+        #exporter="matTableExporter"
+      >
+        <!-- Order Number Column -->
+        <ng-container matColumnDef="Customer_ID">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Customer_ID"
+          >
+           Customer ID
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Customer_ID }}
+          </td>
+        </ng-container>
+
+        <!-- Order Date Column -->
+        <ng-container matColumnDef="LEASE_ID">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by LEASE_ID"
+          >
+            LEASE ID
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.LEASE_ID }}
+          </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="Order_ID">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Order_ID"
+          >
+           Order ID
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.Order_ID }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Order_Type">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Order_Type"
+          >
+            Order Type
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Order_Type }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Order_Date">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Order_Date"
+          >
+            Order Date
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Order_Date }}
+          </td>
+        </ng-container>
+
+        <!-- Total Column -->
+        <ng-container matColumnDef="Total_Amount">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Total_Amount"
+          >
+           Amount
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.Total_Amount }}</td>
+        </ng-container>
+
+        <!-- Order Date Column -->
+        <ng-container matColumnDef="Total_VAT">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Total_VAT"
+          >
+            VAT
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.Total_VAT }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Total_Invoice_Amount">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Total_Invoice_Amount"
+          >
+            Total Invoice Amount
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.Total_Invoice_Amount }}</td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="Status">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Status"
+          >
+            Status
+          </th>
+           <td mat-cell *matCellDef="let element">{{ element.Status }}</td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <mat-paginator
+      [pageSizeOptions]="[50, 100, 200]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</div>
+
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>

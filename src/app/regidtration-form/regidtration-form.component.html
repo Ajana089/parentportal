@@ -1,0 +1,65 @@
+<div class="container">
+  <div  class="form-box">
+    <div *ngIf="flag">
+    <h2>Registration Form</h2>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label>Parent Name:</label>
+        <input formControlName="parentname" />
+        <div *ngIf="parentname.invalid && parentname.touched" class="error">
+          Name is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>Child Name:</label>
+        <input formControlName="childname" />
+        <div *ngIf="childname.invalid && childname.touched" class="error">
+          Child name is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>Mobile Number:</label>
+        <input type="number" formControlName="mobnumber" />
+        <div *ngIf="mobnumber.invalid && mobnumber.touched" class="error">
+          Mobile number is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" [disabled]="registrationForm.invalid">Submit</button>
+      </div>
+    </form>
+    <div class="sign">
+   <a routerLink="/login">Do you want to Sign up?</a> 
+</div>
+  </div>
+ 
+<div *ngIf="!flag" class="token-container">
+
+  <button class="close-btn" (click)="closeToken()">✖</button>
+
+  <div class="token-box">
+    <h3>Your token is: {{ token }}</h3>
+  </div>
+
+  <div *ngIf="tokenparent">
+    <small>Parent Name:</small>
+    <h4>{{ tokenparent }}</h4>
+  </div>
+
+  <div *ngIf="tokenchild">
+    <small>Child Name:</small>
+    <h4>{{ tokenchild }}</h4>
+  </div>
+
+  <div *ngIf="tokenmob">
+    <small>Mobile Number:</small>
+    <h4>{{ tokenmob }}</h4>
+  </div>
+
+</div>
+
+</div>
+</div>

@@ -1,0 +1,271 @@
+<!-- Welcome Banner -->
+<div class="welcome-banner">
+  <div class="welcome-text">
+    <h2>Good morning, John 👋</h2>
+    <p>Here's what's happening with your projects and pipeline today. You have
+      <strong class="text-blue">3 pending RFQs</strong> and
+      <strong style="color:#fbbf24">2 approvals</strong> awaiting your action.
+    </p>
+    <p class="welcome-date">
+      <i class="fa-regular fa-calendar"></i> {{ today }}
+      &nbsp;|&nbsp;
+      <i class="fa-regular fa-clock"></i> Q1 2026 · Week 10
+    </p>
+  </div>
+  <div class="welcome-actions">
+    <a href="#" class="btn-primary-crm"><i class="fa-solid fa-plus"></i> New RFQ</a>
+    <a href="#" class="btn-outline-crm"><i class="fa-solid fa-chart-line"></i> View Reports</a>
+  </div>
+</div>
+
+<!-- KPI Cards -->
+<div class="kpi-grid">
+  <div class="stat-card" *ngFor="let card of kpiCards; let i = index" [style.animation-delay]="(i * 0.05) + 's'">
+    <div class="stat-card-header">
+      <div class="stat-icon" [ngClass]="card.iconClass">
+        <i class="fa-solid {{ card.icon }}"></i>
+      </div>
+      <span class="stat-badge" [ngClass]="card.badgeClass">{{ card.badge }}</span>
+    </div>
+    <div class="stat-value">{{ card.value }}</div>
+    <div class="stat-label">{{ card.label }}</div>
+    <div class="stat-sub" [innerHTML]="card.sub"></div>
+  </div>
+</div>
+
+<!-- Row 2: Revenue + Pipeline + Quick Actions -->
+<div class="grid-row row-2">
+
+  <!-- Revenue Chart -->
+  <div class="crm-card revenue-card">
+    <div class="crm-card-head">
+      <div class="crm-card-title"><i class="fa-solid fa-chart-column"></i> Revenue Overview</div>
+      <div class="chart-legend">
+        <span class="legend-item"><span class="dot red"></span>2025</span>
+        <span class="legend-item"><span class="dot blue"></span>2026</span>
+        <select class="year-select">
+          <option>This Year</option>
+          <option>Last Year</option>
+          <option>Last 6 Months</option>
+        </select>
+      </div>
+    </div>
+    <div class="crm-card-body">
+      <div class="rev-header">
+        <span class="rev-total">AED 48.2M</span>
+        <span class="stat-badge badge-up">+18.4%</span>
+        <span class="rev-compare">vs last year</span>
+      </div>
+      <div class="rev-bar-wrap">
+        <div class="rev-bar-group" *ngFor="let bar of revenueBars">
+          <div class="rev-bar b-red"  [style.height]="bar.prev + '%'"></div>
+          <div class="rev-bar b-blue" [style.height]="bar.curr + '%'"></div>
+        </div>
+      </div>
+      <div class="rev-x-labels">
+        <span *ngFor="let m of revenueMonths">{{ m }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipeline -->
+  <div class="crm-card">
+    <div class="crm-card-head">
+      <div class="crm-card-title"><i class="fa-solid fa-filter"></i> Pipeline Status</div>
+      <button class="btn-sm-link">View all <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></button>
+    </div>
+    <div class="crm-card-body pipeline-body">
+      <div class="pipeline-item" *ngFor="let p of pipeline">
+        <div class="pipeline-row">
+          <span class="pipeline-label">{{ p.label }}</span>
+          <span class="pipeline-val">{{ p.count }} · {{ p.value }}</span>
+        </div>
+        <div class="progress-crm">
+          <div class="progress-fill" [style.width]="p.width + '%'" [style.background]="p.color"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="crm-card">
+    <div class="crm-card-head">
+      <div class="crm-card-title"><i class="fa-solid fa-bolt"></i> Quick Actions</div>
+    </div>
+    <div class="crm-card-body">
+      <div class="quick-grid">
+        <a href="#" class="quick-action" *ngFor="let action of quickActions">
+          <i class="fa-solid {{ action.icon }}"></i>
+          <span>{{ action.label }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Row 3: Table + Activity -->
+<div class="grid-row row-3">
+
+  <!-- Recent Records Table -->
+  <div class="crm-card table-card">
+    <div class="crm-card-head">
+      <div class="crm-card-title"><i class="fa-solid fa-file-contract"></i> Recent Quotations & Contracts</div>
+      <button class="btn-sm-link">All records <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></button>
+    </div>
+    <div class="table-scroll">
+      <table class="crm-table">
+        <thead>
+          <tr>
+            <th>Ref #</th>
+            <th>Customer</th>
+            <th>Project</th>
+            <th>Type</th>
+            <th>Value (AED)</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of recentRecords">
+            <td><span class="fw-600 text-blue">{{ r.ref }}</span></td>
+            <td>
+              <div class="customer-cell">
+                <span class="avatar-xs" [style.background]="r.customerColor">{{ r.customerInitials }}</span>
+                <span class="fw-600">{{ r.customer }}</span>
+              </div>
+            </td>
+            <td>{{ r.project }}</td>
+            <td><span class="crm-tag" [ngClass]="r.typeClass">{{ r.type }}</span></td>
+            <td class="fw-600">{{ r.value }}</td>
+            <td><span class="status-pill" [ngClass]="r.statusClass">{{ r.statusLabel }}</span></td>
+            <td class="text-muted">{{ r.date }}</td>
+            <td><button class="row-action"><i class="fa-solid fa-ellipsis"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity Feed -->
+  <div class="crm-card">
+    <div class="crm-card-head">
+      <div class="crm-card-title"><i class="fa-solid fa-clock-rotate-left"></i> Recent Activity</div>
+      <button class="btn-sm-link">All <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></button>
+    </div>
+    <div class="crm-card-body activity-body">
+      <div class="activity-item" *ngFor="let a of activities">
+        <div class="activity-icon-wrap" [ngClass]="a.iconClass">
+          <i class="fa-solid {{ a.icon }}"></i>
+        </div>
+        <div class="activity-content">
+          <div class="activity-title">{{ a.title }}</div>
+          <div class="activity-meta">{{ a.meta }}</div>
+        </div>
+        <div class="activity-time">{{ a.time }}</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Row 4: Top Customers + QC Summary + Placeholder -->
+<div class="grid-row row-4">
+
+  <!-- Top Customers -->
+  <div class="crm-card">
+    <div class="crm-card-head">
+      <div class="crm-card-title"><i class="fa-solid fa-trophy"></i> Top Customers by Revenue</div>
+      <button class="btn-sm-link">Customer Master <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></button>
+    </div>
+    <div class="crm-card-body customer-body">
+      <div class="customer-row" *ngFor="let c of topCustomers">
+        <div class="customer-row-header">
+          <div class="customer-info">
+            <span class="avatar-xs" [style.background]="c.color">{{ c.initials }}</span>
+            <span class="fw-600 customer-name">{{ c.name }}</span>
+          </div>
+          <span class="fw-600 customer-rev">{{ c.revenue }}</span>
+        </div>
+        <div class="progress-crm">
+          <div class="progress-fill" [style.width]="c.width + '%'" [style.background]="c.barColor"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QC Summary -->
+  <div class="crm-card">
+    <div class="crm-card-head">
+      <div class="crm-card-title"><i class="fa-solid fa-shield-check"></i> Quality Control Summary</div>
+      <span class="crm-tag tag-gray">March 2026</span>
+    </div>
+    <div class="crm-card-body">
+      <div class="qc-stats">
+        <div class="qc-stat neutral">
+          <div class="qc-val">83</div>
+          <div class="qc-lbl">Total</div>
+        </div>
+        <div class="qc-stat pass">
+          <div class="qc-val">76</div>
+          <div class="qc-lbl">Passed</div>
+        </div>
+        <div class="qc-stat fail">
+          <div class="qc-val">7</div>
+          <div class="qc-lbl">Failed</div>
+        </div>
+      </div>
+      <div class="qc-progress">
+        <div class="qc-rate-row">
+          <span class="text-muted">Pass Rate</span>
+          <span class="fw-600" style="color:#1a9448">91.6%</span>
+        </div>
+        <div class="progress-crm" style="height:8px">
+          <div class="progress-fill" style="width:91.6%;background:linear-gradient(90deg,#1a9448,#34d399)"></div>
+        </div>
+      </div>
+      <div class="qc-items">
+        <div class="qc-row">
+          <span>Pending Review</span>
+          <span class="status-pill pill-amber">14 items</span>
+        </div>
+        <div class="qc-row">
+          <span>Non-Conformances Open</span>
+          <span class="status-pill pill-red">5 NCRs</span>
+        </div>
+        <div class="qc-row">
+          <span>Certifications Active</span>
+          <span class="status-pill pill-green">29 certs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module Placeholder -->
+  <div class="crm-card placeholder-card">
+    <div class="placeholder-body">
+      <div class="placeholder-icon">
+        <i class="fa-solid fa-puzzle-piece"></i>
+      </div>
+      <div class="placeholder-text">
+        <div class="placeholder-title">Module Placeholder</div>
+        <div class="placeholder-sub">Reserved for future<br/>integration or widget</div>
+      </div>
+      <button class="btn-sm-link">
+        <i class="fa-solid fa-plus"></i> Add Widget
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="page-footer">
+  <span>© 2026 <strong>Conmix CRM</strong> &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; Version 1.0.0</span>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Use</a>
+    <a href="#">Support</a>
+  </div>
+</footer>

@@ -1,0 +1,101 @@
+
+
+.login.plain-background {
+  background: rgb(120, 215, 255);
+  background: linear-gradient(
+    180deg,
+    rgb(189, 235, 255) 0%,
+    rgba(205, 236, 252, 1) 56%,
+    rgba(187, 250, 170, 1) 100%
+  );
+  transition: background-image 0.1s ease-in-out; /* Smooth transition */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.login .left-background {
+  background-color: #fff;
+  /* background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../../../../assets/img/CGT.jpg"); */
+  background-image: url("../../../../../assets/img/CGT.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-image 0.1s ease-in-out; /* Smooth transition */
+}
+.dynamic-width {
+  width: 99%; /* Default width for extra-small (xs) and small (sm) screens */
+}
+.carousel-image {
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 5px;
+  min-height: 300px;
+}
+.login .carousel{
+  min-height: 40vh;
+}
+@media (min-width: 768px) {
+  .login .carousel{
+    min-height: 50vh;
+  }
+}
+
+@media (min-width: 992px) {
+  .login .carousel{
+    min-height: 95vh;
+  }
+}
+.login .show-pass-icon {
+  font-size: 15pt;
+  position: absolute;
+  top: 40%;
+  right: 15px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  /* color: rgba(255, 255, 255, 0.9); */
+  cursor: pointer;
+}
+
+.login .login-button {
+  background-color: #FFA500;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 600;
+  border: 1px solid #FFA500;
+}
+
+.login .login-button:focus {
+  border: 1px solid #FFA500;
+}
+
+.login .login-button:hover {
+  border: 1px solid #FFA500;
+  background-color: #fff;
+  color: #FFA500;
+}
+
+.login .login-tenant {
+  background-color: #00b3ff;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 600;
+  border: 1px solid #00b3ff;
+}
+
+.login .login-tenant:focus {
+  border: 1px solid #00b3ff;
+}
+
+.login .login-tenant:hover {
+  border: 1px solid #00b3ff;
+  background-color: #fff;
+  color: #00b3ff;
+}
+
+.navbar .navbar-toggler-bar{
+  background: #000 !important;
+  height: 2px !important;
+}

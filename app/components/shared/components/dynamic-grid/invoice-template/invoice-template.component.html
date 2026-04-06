@@ -1,0 +1,389 @@
+<button mat-icon-button (click)="printInvoice(params)">
+    <mat-icon>print</mat-icon>
+</button>
+
+<section *ngIf="transaction || order">
+    <div id="invoice" class="container">
+        <div *ngIf="type =='deposit'" class="row">
+            <div style="border: 1px dotted;" class="col-4 p-2 ml-5">
+                <div style="text-align: center;">
+                    <h2>HOT OVEN FOODSTUFF</h2>
+                    <h2>CATERING LLC</h2>
+                    <h5>P.O BOX: 88, Sharjah</h5>
+                    <h5>TRN NO: 100074208800003</h5>
+                    <h3>TAX INVOICE</h3>
+                </div>
+                <div style="padding:10px;">
+                    <p class="flex flex-space-between"> Invoice No:
+                        <span>{{transaction?.deposit_invoice_code || transaction?.withdrawl_invoice_code}}</span></p>
+                    <p class="flex flex-space-between"> Date:
+                        <span>{{transaction?.deposit_date || transaction?.withdrawl_date | date}}</span></p>
+                    <p class="flex flex-space-between"> Customer Name: <span>{{transaction?.student_name}}</span></p>
+                    <p class="flex flex-space-between"> Type:
+                        <span >Deposit</span>
+                       
+                    </p>
+                </div>
+                <div>
+                    <div class="flex" style="border-bottom: 1px solid; border-top: 1px solid;">
+                        <div class="col-1">
+                            <strong>#</strong>
+                        </div>
+                        <div class="col-8">
+                            <strong>Description</strong>
+                        </div>
+                        <div class="col-3">
+                            <strong>Amount (incl VAT)</strong>
+                        </div>
+                    </div>
+                    <div class="flex pt-2" style="border-bottom: 1px solid;">
+                        <div class="col-1">
+                            1
+                        </div>
+                        <div class="col-8">
+                            Citygate Cafeteria Deposit
+                        </div>
+                        <div class="col-3">
+                            {{parseFloat(transaction?.net_total_amount).toFixed(2)}}
+                        </div>
+                    </div>
+                    <div class="flex  mt-4" style="border-bottom: 1px solid;">
+                        <div class="col offset-6">
+                            Total:
+                        </div>
+                        <div class="col">
+                            {{parseFloat(transaction?.net_total_amount).toFixed(2)}}
+                        </div>
+
+                    </div>
+                    <div *ngIf="transaction?.tax_amount" class="flex">
+                        <div class="col-2">
+                            VAT:
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(transaction?.tax_rate).toFixed(2)}}%
+                        </div>
+                        <div class="col offset-2">
+                            <strong>VAT Amount:</strong> {{parseFloat(transaction?.tax_amount).toFixed(2)}}
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-8 offset-2">
+                            <strong>Amnt excl. VAT (AED):</strong>
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(transaction?.taxable_amount).toFixed(2)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5" style="text-align: center;">
+                    <h4> *** Thank you ***</h4>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="type =='widraw'" class="row">
+            <div style="border: 1px dotted;" class="col-4 p-2 ml-5">
+                <div style="text-align: center;">
+                    <h2>HOT OVEN FOODSTUFF</h2>
+                    <h2>CATERING LLC</h2>
+                    <h5>P.O BOX: 88, Sharjah</h5>
+                    <h5>TRN NO: 100074208800003</h5>
+                    <h3>TAX CREDIT NOTE</h3>
+                </div>
+                <div style="padding:10px;">
+                    <p class="flex flex-space-between"> CREDIT NOTE No:
+                        <span>{{transaction?.deposit_invoice_code || transaction?.withdrawl_invoice_code}}</span></p>
+                    <p class="flex flex-space-between"> Date:
+                        <span>{{transaction?.deposit_date || transaction?.withdrawl_date | date}}</span></p>
+                    <p class="flex flex-space-between"> Customer Name: <span>{{transaction?.student_name}}</span></p>
+                    <p class="flex flex-space-between"> Type:
+                       
+                        <span >Withdrawl</span>
+                    </p>
+                </div>
+                <div>
+                    <div class="flex" style="border-bottom: 1px solid; border-top: 1px solid;">
+                        <div class="col-1">
+                            <strong>#</strong>
+                        </div>
+                        <div class="col-8">
+                            <strong>Description</strong>
+                        </div>
+                        <div class="col-3">
+                            <strong>Amount</strong>
+                        </div>
+                    </div>
+                    <div class="flex pt-2" style="border-bottom: 1px solid;">
+                        <div class="col-1">
+                            1
+                        </div>
+                        <div class="col-8">
+                            {{transaction?.deposit_code || transaction?.withdrawl_code}}
+                        </div>
+                        <div class="col-3">
+                            {{parseFloat(transaction?.net_total_amount).toFixed(2)}}
+                        </div>
+                    </div>
+                    <div class="flex  mt-4" style="border-bottom: 1px solid;">
+                        <div class="col offset-6">
+                            Total:
+                        </div>
+                        <div class="col">
+                            {{parseFloat(transaction?.net_total_amount).toFixed(2)}}
+                        </div>
+
+                    </div>
+                    <div *ngIf="transaction?.tax_amount" class="flex">
+                        <div class="col-2">
+                            VAT:
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(transaction?.tax_rate).toFixed(2)}}%
+                        </div>
+                        <div class="col offset-2">
+                            <strong>VAT Amount:</strong> {{parseFloat(transaction?.tax_amount).toFixed(2)}}
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-8 offset-2">
+                            <strong>Total Amount Inc. VAT (AED):</strong>
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(transaction?.taxable_amount).toFixed(2)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5" style="text-align: center;">
+                    <h4> *** Thank you ***</h4>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="type ==='order'" class="row">
+            <div style="border: 1px dotted;" class="col-4 p-2 ml-5">
+                <div style="text-align: center;">
+                    <h2>HOT OVEN FOODSTUFF</h2>
+                    <h2>CATERING LLC</h2>
+                    <h5>P.O BOX: 88, Sharjah</h5>
+                    <h5>TRN NO: 100074208800003</h5>
+                    <h3>{{invoiceName}}</h3>
+                </div>
+                <div style="padding:10px;">
+
+                    <p class="flex flex-space-between"> Invoice No:
+                        <span *ngIf="type ==='order'">{{order?.order_token}}</span>
+                        <span *ngIf="type ==='cancelOrder'">{{order?.cancel_token}}</span>
+                    </p>
+
+                    <p class="flex flex-space-between"> Date: <span>{{order.order_date | date}}</span></p>
+                    <p class="flex flex-space-between"> Customer Name: <span>{{order.student_name}}</span></p>
+                    <p class="flex flex-space-between"> Type: <span >{{bType}}</span></p>
+
+                </div>
+                <div>
+                    <div class="flex" style="border-bottom: 1px solid; border-top: 1px solid;">
+                        <div class="col-1">
+                            <strong>#</strong>
+                        </div>
+                        <div class="col-4">
+                            <strong>Description</strong>
+                        </div>
+                        <div class="col-2">
+                            <strong>QTY</strong>
+                        </div>
+                        <div class="col-2">
+                            <strong>Price</strong>
+                        </div>
+                        <div class="col-3">
+                            <strong>Taxable Amount</strong>
+                        </div>
+                    </div>
+                    <div class="flex pt-2" style="border-bottom: 1px solid;"
+                        *ngFor="let item of order.order_items; let i = index">
+                        <div class="col-1">
+                            {{i + 1}}
+                        </div>
+                        <div class="col-4">
+                            {{item?.item_name}}
+                        </div>
+                        <div class="col-2">
+                            {{item?.order_quantity}}
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(item.item_sale_price).toFixed(2)}}
+                        </div>
+                        <div class="col-3">
+                            {{parseFloat(item.order_quantity * item.item_sale_price).toFixed(2)}}
+                        </div>
+                    </div>
+                    <div class="flex  mt-4" style="border-bottom: 1px solid;">
+                        <div class="col offset-7">
+                            Total:
+                        </div>
+                        <div class="col">
+                            {{parseFloat(order.sales_amount).toFixed(2)}}
+                        </div>
+
+                    </div>
+                    <div *ngIf="tax" class="flex">
+                        <div class="col-2">
+                            VAT:
+                        </div>
+                        <div class="col-3">
+                            {{parseFloat(order.tax_percent).toFixed(2)}}%
+                        </div>
+                        <div class="col-5">
+                            <strong>VAT Amount:</strong>
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(order.tax_amount).toFixed(2)}}
+                        </div>
+                    </div>
+                    <!-- <div class="flex">
+                        <div class="col-3">
+                            Discount:
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(order.discount_percent).toFixed(2)}}%
+                        </div>
+                        <div class="col">
+                            <strong>Discount Amount:</strong> {{parseFloat(order.discount_amount).toFixed(2)}}
+                        </div>
+                        <div class="col-1">
+                            {{parseFloat(order.discount_amount).toFixed(2)}}
+                        </div>
+                    </div> -->
+                    <div *ngIf="discount" class="flex">
+                        <div class="col-2">
+                            Disc.:
+                        </div>
+                        <div class="col-2">
+                            {{order.discount_percent.toFixed(2)}}%
+                        </div>
+                        <div class="col offset-1">
+                            <strong>Discount Amount:</strong> {{discount.toFixed(2)}}
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-7 offset-3">
+                            <strong>Total Amount (AED):</strong>
+                        </div>
+                        <div class="col-2">
+                            {{(DiscountAmount+tax).toFixed(2)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5" style="text-align: center;">
+                    <h4> *** Thank you ***</h4>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="type ==='cancelOrder'" class="row">
+            <div style="border: 1px dotted;" class="col-4 p-2 ml-5">
+                <div style="text-align: center;">
+                    <h2>HOT OVEN FOODSTUFF</h2>
+                    <h2>CATERING LLC</h2>
+                    <h5>P.O BOX: 88, Sharjah</h5>
+                    <h5>TRN NO: 100074208800003</h5>
+                    <h3>{{invoiceName}}</h3>
+                </div>
+                <div style="padding:10px;">
+
+                    <p class="flex flex-space-between"> Credit Note No:
+                        <span *ngIf="type ==='order'">{{order?.order_token}}</span>
+                        <span *ngIf="type ==='cancelOrder'">{{order?.cancel_token}}</span>
+                    </p>
+
+                    <p class="flex flex-space-between"> Date: <span>{{order.order_date | date}}</span></p>
+                    <p class="flex flex-space-between"> Customer Name: <span>{{order.student_name}}</span></p>
+                    <p class="flex flex-space-between" > Type: <span>{{bType}}</span></p>
+
+                </div>
+                <div>
+                    <div class="flex" style="border-bottom: 1px solid; border-top: 1px solid;">
+                        <div class="col-1">
+                            <strong>#</strong>
+                        </div>
+                        <div class="col-4">
+                            <strong>Description</strong>
+                        </div>
+                        <div class="col-2">
+                            <strong>QTY</strong>
+                        </div>
+                        <div class="col-2">
+                            <strong>Price</strong>
+                        </div>
+                        <div class="col-3">
+                            <strong>Taxable Amount</strong>
+                        </div>
+                    </div>
+                    <div class="flex pt-2" style="border-bottom: 1px solid;"
+                        *ngFor="let item of order.order_items; let i = index">
+                        <div class="col-1">
+                            {{i + 1}}
+                        </div>
+                        <div class="col-4">
+                            {{item?.item_name}}
+                        </div>
+                        <div class="col-2">
+                            {{item?.order_quantity}}
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(item.item_sale_price).toFixed(2)}}
+                        </div>
+                        <div class="col-3">
+                            {{parseFloat(item.order_quantity * item.item_sale_price).toFixed(2)}}
+                        </div>
+                    </div>
+                    <div class="flex  mt-4" style="border-bottom: 1px solid;">
+                        <div class="col offset-7">
+                            Total:
+                        </div>
+                        <div class="col">
+                            {{parseFloat(order.sales_amount).toFixed(2)}}
+                        </div>
+
+                    </div>
+                    <div class="flex">
+                        <div class="col-3">
+                            VAT:
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(order.tax_percent).toFixed(2)}}%
+                        </div>
+                        <div class="col offset-1">
+                            <strong>VAT Amount:</strong>
+                        </div>
+                        <div class="col-1">
+                            {{parseFloat(order.tax_amount).toFixed(2)}}
+                        </div>
+                    </div>
+                    <!-- <div class="flex">
+                        <div class="col-3">
+                            Discount:
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(order.discount_percent).toFixed(2)}}%
+                        </div>
+                        <div class="col">
+                            <strong>Discount Amount:</strong> {{parseFloat(order.discount_amount).toFixed(2)}}
+                        </div>
+                        <div class="col-1">
+                            {{parseFloat(order.discount_amount).toFixed(2)}}
+                        </div>
+                    </div> -->
+                    <div class="flex">
+                        <div class="col-8 offset-2">
+                            <strong>Total Amount (AED):</strong>
+                        </div>
+                        <div class="col-2">
+                            {{parseFloat(order.sales_amount + order.tax_amount).toFixed(2)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5" style="text-align: center;">
+                    <h4> *** Thank you ***</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

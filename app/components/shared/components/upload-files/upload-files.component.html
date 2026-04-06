@@ -1,0 +1,23 @@
+<!-- <div class="card main-title">
+  <div class="col-md-12">
+    <div class="form-group">
+      <br>
+      <h6 class="pb-2 font-15" *ngIf="showHeaderText">{{headerText}} ({{files.length}})</h6>
+      <div *ngIf="!disableControls" [ngClass]="{'upload' : showUploadedFiles.length > 0}">
+        <input #fileInput type="file" (change)="onSelectFile($event)" multiple />
+        <ul class="list-group list-group-flush" *ngFor="let file of files; let i = index">
+          <li class="list-group-item pl-0">
+            {{file.name}}
+            <a (click)="removeFile(i)" class="btn btn-xs btn-danger float-right white">Remove</a>
+          </li>
+        </ul>
+      </div>
+      <ul class="list-group list-group-flush" *ngFor="let file of showUploadedFiles; let i = index">
+        <li class="list-group-item pl-0">
+          <a href="javascript:void(0)" (click)="viewDocument(file.Attachment)">{{file.FileName}}</a> 
+          <a *ngIf="!disableControls" (click)="removeUploadedFile(i, file.Id)" class="btn btn-xs btn-danger float-right white">Remove</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>  -->

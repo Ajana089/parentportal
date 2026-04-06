@@ -1,0 +1,3 @@
+::ng-deep .mat-mdc-dialog-inner-container.mdc-dialog__container {
+  max-height: 100vh;
+}

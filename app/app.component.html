@@ -1,0 +1,9 @@
+<!-- <app-progress-spinner [color]="color" [displayProgressSpinner]="spinnerService.visibility | async" [mode]="mode" [value]="value" [backdropEnabled]="true"
+    [positionGloballyCenter]="true">
+</app-progress-spinner> -->
+
+<div *ngIf="loading" class="cssload-container">
+    <div class="cssload-speeding-wheel"></div>
+</div>
+
+<router-outlet></router-outlet>

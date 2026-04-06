@@ -1,0 +1,9 @@
+<span *ngIf="params.data?.is_veg === 0">
+    <img class="mr-15" src="../../../../../assets/images/non-veg-icon.png"
+        style="height:16px; width:16px; vertical-align: middle;">  {{params.value}}
+</span>
+
+<span *ngIf="params.data?.is_veg === 1">
+    <img class="mr-15" src="../../../../../assets/images/veg-icon.png"
+        style="height:16px; width:16px; vertical-align: middle;"> {{params.value}}
+</span>

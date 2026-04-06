@@ -1,0 +1,241 @@
+.input-rounded-form {
+  border-radius: 5px !important;
+  background-color: #eee !important;
+  color: #575555c9 !important;
+  padding: 3px 0px 3px 14px !important;
+  border: none !important;
+  font-size: 14px !important;
+  width: 100%;
+}
+
+.input-rounded-form1 {
+  border-radius: 5px !important;
+  background-color: #eee !important;
+  color: #575555c9 !important;
+  padding: 3px 0px 3px 14px !important;
+  border: none !important;
+  font-size: 14px !important;
+  width: 80%;
+  margin-right: 10px;
+}
+
+.guest {
+  text-align: center;
+  font-weight: bold;
+}
+
+.btn-guest {
+  background-color: #7fa8f5 !important;
+}
+
+.pb-20 {
+  padding-bottom: 20px;
+}
+
+.popup-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  position: relative !important;
+}
+
+.close-button {
+  position: absolute;
+  right: 25px;
+}
+
+.btn-close1 {
+  width: 35px;
+  height: 35px;
+  border-radius: 500px;
+  background-color: #e93119;
+  transition: 0.2s;
+  color: #fff;
+  border: none;
+}
+
+.btn-close1:hover {
+  background-color: #9b1d0c;
+  transition: 0.2s;
+}
+
+.cdk-overlay-pane {
+  width: 40% !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius: 5px;
+  padding: 25px;
+}
+
+::ng-deep .cdk-global-overlay-wrapper {
+  justify-content: center !important;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  max-width: initial !important;
+  max-height: 100vh;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.radio-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 80px; */
+  height: 30px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s;
+  padding: 0 8px;
+}
+
+.radio-button:hover{
+  transition: 0.2s;
+  background-color: #0088cc;
+  border: 1px solid #0088cc;
+  color: white;
+}
+
+.selected {
+  background-color: #0088cc;
+  color: white;
+  border: 1px solid #0088cc;
+}
+
+.radio-button label {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 10pt;
+}
+.product-desc {
+  font-size: 10pt;
+  font-weight: 500;
+}
+.product-desc-value {
+  font-weight: 300;
+}
+/* .custom-progress-bar {
+  height: 20px; 
+}
+
+.custom-progress-bar .mat-progress-bar-fill::after {
+  height: 20px; 
+}
+
+.custom-progress-bar .mat-progress-bar-buffer {
+  height: 20px; 
+} */
+
+/* Above Threshold #2FC589 */
+/* Below Threshold #edbe15 */
+/* Out of Stock #E12D2D */
+ 
+.stock-meter-container {
+  width: 100%;
+  height: 30px;
+  background-color: #e0e0e0;
+  border-radius: 50px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.stock-meter {
+  height: 100%;
+  background-color: #2FC589;
+  transition: width 0.5s ease;
+  border-radius: 50px;
+}
+
+.stock-meter.below-threshold {
+  background-color: #edbe15;
+}
+
+.stock-meter-value.out-of-stock {
+  color: #E12D2D;
+}
+
+.stock-meter-value {
+  position: absolute;
+  margin-top: 4px;
+  margin-left: 15px;
+  font-size: 11pt;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 2px 0px 13px rgba(0, 0, 0, 0.6);
+}
+.product-quantity-button {
+  font-size: 30pt;
+  cursor: pointer;
+  height: 30pt;
+  width: 30pt;
+}
+.add-to-cart-button {
+  background-color: #0088cc;
+  transition: 0.2s;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.add-to-cart-button:hover {
+  background-color: #00689c;
+  transition: 0.2s;
+}
+.add-to-cart-button:disabled{
+background-color: #6d6d6d;
+}
+
+.add-to-cart-icon {
+  font-size: 18pt;
+  height: 18pt;
+  width: 18pt;
+  color: #fff;
+}
+p.add-to-cart-message {
+  margin-bottom: 0;
+  font-size: 13pt;
+  font-weight: 500;
+  color: #fff;
+  padding-left: 10px;
+}
+p.product-price {
+  font-size: 20pt;
+  font-weight: 500;
+}
+::ng-deep .home-product .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+/* Remove spinner arrows in Chrome, Edge, and Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove spinner arrows in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

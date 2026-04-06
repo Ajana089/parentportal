@@ -1,0 +1,143 @@
+<header class="topbar" (click)="closeAll()">
+  <!-- Sidebar Toggle -->
+  <button
+    class="topbar-toggle"
+    (click)="$event.stopPropagation(); layout.toggleSidebar()"
+  >
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
+  <!-- Breadcrumb -->
+  <div class="topbar-breadcrumb">
+    <span class="page-title">{{ getTitle() }}</span>
+  </div>
+
+  <!-- Search -->
+  <!-- <div class="topbar-search">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" placeholder="Search customers, projects, RFQs…"/>
+  </div> -->
+
+  <!-- Actions -->
+  <div class="topbar-actions">
+    <!-- Notifications -->
+    <div class="crm-dropdown-wrap" (click)="$event.stopPropagation()">
+      <button class="topbar-btn" (click)="toggleNotifications()">
+        <i class="fa-solid fa-bell"></i>
+        <span class="badge-dot"></span>
+      </button>
+      <div class="crm-dropdown-menu notif-menu" [class.open]="notifOpen()">
+        <div class="notif-head">
+          <strong>Notifications</strong>
+          <button class="btn-sm-link">Mark all read</button>
+        </div>
+        <div class="notif-item" *ngFor="let n of notifications">
+          <div class="notif-icon" [ngClass]="n.iconClass">
+            <i class="fa-solid {{ n.icon }}"></i>
+          </div>
+          <div class="notif-text">
+            <div class="notif-title">{{ n.title }}</div>
+            <div class="notif-sub">{{ n.sub }}</div>
+          </div>
+          <div class="notif-time">{{ n.time }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <!-- <button class="topbar-btn">
+      <i class="fa-solid fa-envelope"></i>
+      <span class="badge-dot blue"></span>
+    </button> -->
+
+    <!-- Fullscreen -->
+    <!-- <button class="topbar-btn d-md" (click)="toggleFullscreen($event)">
+      <i class="fa-solid" [ngClass]="isFullscreen() ? 'fa-compress' : 'fa-expand'"></i>
+    </button> -->
+
+    <!-- User Profile -->
+    <div class="crm-dropdown-wrap" (click)="$event.stopPropagation()">
+      <button class="user-profile-btn" (click)="toggleProfile()">
+        <div class="user-avatar">A</div>
+        <div class="user-profile-info">
+          <div class="user-profile-name">{{ first_name }}</div>
+          <div class="user-profile-role">Administrator</div>
+        </div>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </button>
+      <div class="crm-dropdown-menu profile-menu" [class.open]="profileOpen()">
+        <!-- <a class="crm-dropdown-item" href="#">
+          <i class="fa-solid fa-user"></i> My Profile
+        </a>
+        <a class="crm-dropdown-item" href="#">
+          <i class="fa-solid fa-gear"></i> Account Settings
+        </a>
+        <a class="crm-dropdown-item" href="#">
+          <i class="fa-solid fa-shield-halved"></i> Security
+        </a>
+        <div class="crm-dropdown-divider"></div> -->
+        <a class="crm-dropdown-item danger" (click)="logout()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- <nav
+  class="navbar navbar-expand-lg navbar-absolute fixed-top"
+>
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <div class="navbar-toggle">
+        <button type="button" class="navbar-toggler" (click)="sidebarToggle()">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </button>
+      </div>
+      <a class="navbar-brand" href="#pablo">{{ getTitle() }}</a>
+    </div>
+    <div class="navbar-welcome">
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Welcome&nbsp;<span style="text-transform: capitalize">{{
+                first_name
+              }}</span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li style="padding: 5px; cursor: pointer">
+                <a class="dropdown-item" (click)="logout()">
+                  <i class="now-ui-icons bg-menu-item media-1_button-power"></i>
+                  Logout</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav> -->

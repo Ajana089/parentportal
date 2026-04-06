@@ -1,0 +1,153 @@
+<div class="container-fluid view-order">
+  <div>
+    <div class="filter-container justify-content-between">
+      <div class="topbar-search">
+        <i
+          class="fa-solid fa-magnifying-glass"
+          style="color: var(--muted); font-size: 13px"
+        ></i>
+        <input type="text" (keyup)="applyFilter($event)" placeholder="Search" />
+      </div>
+      <button class="icon-btn" (click)="openAddDialog()" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table
+        mat-table
+        matTableExporter
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+        #exporter="matTableExporter"
+      >
+        <ng-container matColumnDef="OracleBUID">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by OracleBUID"
+          >
+            Oracle BU ID
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.OracleBUID }}
+          </td>
+        </ng-container>
+
+        <!-- Order Number Column -->
+        <ng-container matColumnDef="BUName">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by BUName"
+          >
+            BU Name
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.BUName }}
+          </td>
+        </ng-container>
+
+        <!-- Order Date Column -->
+        <ng-container matColumnDef="OracleBUCode">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by OracleBUCode"
+          >
+            Oracle BU Code
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.OracleBUCode }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DefaultCurrency">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by DefaultCurrency"
+          >
+            Default Currency
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.DefaultCurrency }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DefaultLedgerID">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by DefaultLedgerID"
+          >
+            Default Ledger ID
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.DefaultLedgerID }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="LegalEntityID">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by LegalEntityID"
+          >
+            Legal Entity ID
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.LegalEntityID }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Status">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Status"
+          >
+            Status
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Status == true ? "Active" : "Inactive" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="editBUID(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator
+        [pageSizeOptions]="[50, 100, 200]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>

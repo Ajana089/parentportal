@@ -1,0 +1,391 @@
+<div class="close-button d-flex justify-content-end">
+  <button class="btn-close1" mat-icon-button (click)="closeDialog()">X</button>
+</div>
+<div class="container-fluid view-order">
+  <div>
+    <div class="d-flex align-items-center mb-5">
+      <mat-icon
+        style="
+          font-size: 35px;
+          color: #d3d3d4;
+          margin-right: 10px;
+          width: 35px;
+          height: 35px;
+        "
+        >shopping_basket</mat-icon
+      >
+      <h5 class="mb-0" style="font-weight: 700">
+        Order # {{ order?.order_id }}
+      </h5>
+    </div>
+    <div style="border: 1px solid #cccccc;">
+      <div class="row w-100 order-details m-0">
+        <div class="col-6 col-md-4 requester-info">
+          <p class="py-2 mb-0" style="font-size: 12px">
+            Business Unit: <br /><strong style="font-size: 14px">{{
+              order?.company_name
+            }}</strong>
+          </p>
+        </div>
+        <div class="col-6 col-md-4 requester-info">
+          <p class="py-2 mb-0" style="font-size: 12px">
+            Requester Name: <br /><strong style="font-size: 14px">{{
+              order?.full_name
+            }}</strong>
+          </p>
+        </div>
+        <div class="col-6 col-md-4 requester-info">
+          <p class="py-2 mb-0" style="font-size: 12px">
+            Requester Oracle Number: <br /><strong style="font-size: 14px">{{
+              order?.oracle_number
+            }}</strong>
+          </p>
+        </div>
+        <div class="col-6 col-md-4 requester-info">
+          <p class="py-2 mb-0" style="font-size: 12px">
+            Requester Email: <br /><strong style="font-size: 14px">{{
+              order?.email
+            }}</strong>
+          </p>
+        </div>
+        <div class="col-6 col-md-4 requester-info">
+          <p class="py-2 mb-0" style="font-size: 12px">
+            Requester Department: <br /><strong style="font-size: 14px">{{
+              order?.department
+            }}</strong>
+          </p>
+        </div>
+        <div class="col-6 col-md-4 requester-info">
+          <p class="py-2 mb-0" style="font-size: 12px">
+            Requester Designation: <br /><strong style="font-size: 14px">{{
+              order?.designation
+            }}</strong>
+          </p>
+        </div>
+        <div class="col-6 col-md-4 requester-info">
+          <p class="py-2 mb-0" style="font-size: 12px">
+            Order Date: <br /><strong style="font-size: 14px">{{
+              order?.order_date
+            }}</strong>
+          </p>
+        </div>
+        <div class="col-6 col-md-4 requester-info">
+          <p class="py-2 mb-0" style="font-size: 12px">
+            Order Status: <br /><strong style="font-size: 14px">{{
+              order?.status_description
+            }}</strong>
+          </p>
+        </div>
+        <div class="col-6 col-md-4 requester-info">
+          <p class="py-2 mb-0" style="font-size: 12px">
+            Resource Order Category: <br /><strong style="font-size: 14px">{{
+              order?.resource_category
+            }}</strong>
+          </p>
+        </div>
+        <div class="d-none d-md-block col-6 col-md-4 requester-info">
+          <p class="py-2 mb-0" style="font-size: 12px">&nbsp;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-12 col-md-9">
+      <div class="order-items">
+        <table>
+          <thead>
+            <tr>
+              <th class="head-name"><span>Product</span></th>
+              <th class="head-item-cost"><span>Cost</span></th>
+              <th class="head-quantity"><span>Quantity</span></th>
+              <th class="head-item-price"><span>Total</span></th>
+
+              <th class="head-price"><span>Tax</span></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of orderItems">
+              <td class="product-name">
+                <span class="name"> {{ item?.item_name }} </span>
+
+                <dl class="extras">
+                  <dt>Item Code:&nbsp;</dt>
+                  <dd>{{ item.item_code }}</dd>
+                </dl>
+                Category: {{ item?.category_name }} <br />Vendor:
+                {{ item?.vendor_name }} <br />
+                Grade: {{ item?.grade_desc }}<br />
+                UOM: {{ item?.uom }}<br />
+              </td>
+              <td class="product-item-cost">
+                <span
+                  ><span class=""
+                    ><span class=""> AED </span>{{ item.unit_price }}</span
+                  ></span
+                >
+              </td>
+              <td class="product-quantity">
+                <span *ngIf="currOrder.current_approver_id != loggedInUser.ID">{{ item.quantity }}</span>
+                <span *ngIf="currOrder.current_approver_id == loggedInUser.ID">
+                  <mat-form-field
+                    class="full-width"
+                    appearance="outline"
+                    style="width: 100px"
+                  >
+                    <input
+                      class="filter-text"
+                      matInput
+                      type="number"
+                      [disabled]="item.isChecked == false"
+                      (change)="changeQuantity(item)"
+                      [(ngModel)]="item.quantity"
+                    />
+                  </mat-form-field>
+                </span>
+              </td>
+              <td class="product-item-price">
+                <span
+                  ><span class=""
+                    ><span class=""> AED </span
+                    >{{
+                      item.unit_price * item.quantity | number : "1.2-2"
+                    }}</span
+                  ></span
+                >
+
+                <!-- <br />
+                <span style="font-size: 11px; color: #aa0000"
+                  >
+                  <mat-icon
+                    style="
+                      font-size: 16px;
+                      color: #aa0000;
+                      width: 20px;
+                      height: 12px;
+                    "
+                    >keyboard_return</mat-icon
+                  >
+
+                  {{ (item.unit_price * item.quantity).toFixed(2) }}</span
+                > -->
+              </td>
+
+              <td class="product-price">
+                <span
+                  ><span class=""
+                    ><span class=""> AED </span
+                    >{{
+                      item.unit_vat * item.quantity | number : "1.2-2"
+                    }}</span
+                  ></span
+                >
+
+                <!-- <br />
+                <span style="font-size: 11px; color: #aa0000"
+                  >
+                  
+                  <mat-icon
+                    style="
+                      font-size: 16px;
+                      color: #aa0000;
+                      width: 20px;
+                      height: 12px;
+                    "
+                    >keyboard_return</mat-icon
+                  >
+                  {{ item?.vat }}</span
+                > -->
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td class="total-name"><span>Item Subtotal</span></td>
+              <td class="total-item-price"></td>
+              <td class="total-item-price"></td>
+              <td class="total-quantity"></td>
+              <td class="total-price">
+                <span
+                  ><span class=""
+                    ><span class=""> AED </span
+                    >{{
+                      order?.net_total - order?.tax_total | number : "1.2-2"
+                    }}</span
+                  ></span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td class="total-name"><span>Tax</span></td>
+              <td class="total-item-price"></td>
+              <td class="total-item-price"></td>
+              <td class="total-quantity"></td>
+              <td class="total-price">
+                <span
+                  ><span class=""
+                    ><span class=""> AED </span
+                    >{{ order?.tax_total | number : "1.2-2" }}</span
+                  ></span
+                >
+              </td>
+            </tr>
+            <tr>
+              <td class="total-name"><strong>Order Total</strong></td>
+              <td class="total-item-price"></td>
+              <td class="total-item-price"></td>
+              <td class="total-quantity"></td>
+              <td class="total-price">
+                <strong
+                  ><span class=""
+                    ><span class=""> AED </span
+                    >{{
+                      order?.net_total | number : "1.2-2"
+                    }}</span
+                  ></strong
+                >
+              </td>
+            </tr>
+            <!-- <tr style="border-top: 2px solid">
+              <td class="total-name">
+                <span style="color: #aa0000">Refunded</span>
+              </td>
+              <td class="total-item-price"></td>
+              <td class="total-item-price"></td>
+              <td class="total-quantity"></td>
+              <td class="total-price">
+                <span style="color: #aa0000"
+                  ><span class=""><span class=""> AED </span>-100</span></span
+                >
+              </td>
+            </tr> -->
+            <!-- <tr>
+              <td class="total-name"><span>Net Payment</span></td>
+              <td class="total-item-price"></td>
+              <td class="total-item-price"></td>
+              <td class="total-quantity"></td>
+              <td class="total-price">
+                <span
+                  ><span class=""
+                    ><span class=""> AED </span
+                    >{{ (order?.net_total - 100).toFixed(2) }}</span
+                  ></span
+                >
+              </td>
+            </tr> -->
+          </tfoot>
+        </table>
+      </div>
+      <div
+        style="padding: 10px; border: 1px solid #cccccc; margin-bottom: 10px"
+      >
+        <p>
+          Requester Notes: <br /><strong>{{ order?.order_notes }}</strong>
+        </p>
+      </div>
+      <div>
+        <hr />
+        <p><strong>Approver History</strong></p>
+        <table class="full-width table table-bordered approver-history-table">
+          <thead>
+            <tr>
+              <th style="font-size: 14px; font-weight: 600" class="text-center">
+                Approver Stage
+              </th>
+              <th style="font-size: 14px; font-weight: 600" class="text-center">
+                Approver Name
+              </th>
+              <th style="font-size: 14px; font-weight: 600" class="text-center">
+                Status
+              </th>
+              <th style="font-size: 14px; font-weight: 600" class="text-center">
+                Action Date
+              </th>
+              <th style="font-size: 14px; font-weight: 600" class="text-center">
+                Comments
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of approverHistory">
+              <td style="font-size: 14px">{{ item.approver_stage }}</td>
+              <td style="font-size: 14px">{{ item.approver_name }}</td>
+              <td style="font-size: 14px">{{ item.approver_status }}</td>
+              <td style="font-size: 14px">{{ item.action_date }}</td>
+              <td style="font-size: 14px">
+                {{ item.comments }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="approver-action" *ngIf="currOrder.current_approver_id == loggedInUser.ID">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label class="filter-label">Approver Comment</mat-label>
+          <textarea
+            class="filter-text"
+            matInput
+            placeholder="Approver Comment"
+            [(ngModel)]="approverComment"
+          ></textarea>
+        </mat-form-field>
+        <div class="d-flex justify-content-end align-items-center w-100">
+          <div>
+            <button
+              type="button"
+              class="btn btn-success mx-2"
+              style="width: 250px; height: 40px"
+              (click)="updateRequest('approved')"
+            >
+              Approve
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger mx-2"
+              style="width: 250px; height: 40px"
+              (click)="updateRequest('rejected')"
+            >
+              Reject
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="approver-action" *ngIf="currOrder.user_id == loggedInUser.ID && currOrder.status_description == 'Rejected'">
+        <div class="d-flex justify-content-end align-items-center w-100">
+          <div>
+            <button
+              type="button"
+              class="btn btn-success mx-2"
+              style="width: 250px; height: 40px"
+              (click)="editOrder(currOrder)"
+            >
+              Update for Resubmittion
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="order-log-container">
+        <h3>Order logs</h3>
+        <hr />
+        <div class="order-log" *ngFor="let log of orderLogs">
+          <div class="order-log-description">
+            <p>{{ log.description }}</p>
+            <!-- <p>Order status changed to {{ log.status_description }}.</p> -->
+          </div>
+          <div class="order-log-timestamp">
+            <p>{{ log.creation_date }} by {{ log.created_by }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>

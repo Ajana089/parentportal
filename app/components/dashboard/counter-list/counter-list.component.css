@@ -1,0 +1,364 @@
+::ng-deep .mat-mdc-dialog-inner-container.mdc-dialog__container {
+  max-height: 100vh;
+}
+.btn-close1 {
+  width: 35px;
+  height: 35px;
+  border-radius: 500px;
+  background-color: #e93119;
+  transition: 0.2s;
+  color: #fff;
+  border: none;
+}
+
+.btn-close1:hover {
+  background-color: #9b1d0c;
+  transition: 0.2s;
+}
+.full-width {
+  width: 100%;
+}
+.order-details {
+  font-size: 14px;
+  margin-bottom: 2em;
+}
+
+.order-details h3 {
+  font-weight: 600;
+  font-size: 14px;
+}
+.order-items {
+  font-size: 14px;
+}
+.order-items table {
+  width: 100%;
+  margin-bottom: 2em;
+}
+
+.order-items {
+  page-break-before: auto;
+  page-break-after: auto;
+}
+
+.order-items tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+  border-bottom: 0.12em solid #bbb;
+}
+.order-items .head-name,
+.order-items .product-name,
+.order-items .total-name {
+  width: 40%;
+}
+.order-items .head-quantity,
+.order-items .product-quantity,
+.order-items .total-quantity,
+.order-items .head-item-cost,
+.order-items .head-item-price,
+.order-items .product-item-cost,
+.order-items .product-item-price,
+.order-items .total-item-price {
+  width: 15%;
+}
+.order-items .head-price,
+.order-items .product-price,
+.order-items .total-price {
+  width: 20%;
+}
+.order-items .product-name .name,
+.order-items .product-name .extras {
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.order-items .product-name .name {
+  font-weight: 600;
+}
+th {
+  color: black;
+  font-weight: bold;
+  text-align: left;
+  padding-bottom: 1.25em;
+}
+td,
+th {
+  padding: 0.375em 0.75em 0.375em 0;
+  vertical-align: top;
+}
+tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+  border-bottom: 0.12em solid #bbb;
+}
+.order-items dt {
+  clear: left;
+  padding-right: 0.2em;
+}
+.order-items dt,
+.order-items dd {
+  display: block;
+  float: left;
+}
+.order-items small,
+.order-items dt,
+.order-items dd {
+  font-size: 0.785em;
+  font-weight: normal;
+  line-height: 150%;
+  padding: 0;
+  margin: 0;
+}
+.order-items dt,
+.order-items dd {
+  display: block;
+  float: left;
+}
+tfoot {
+  display: table-row-group;
+}
+.order-items tfoot tr:first-child,
+.order-items tfoot tr:last-child {
+  font-weight: bold;
+}
+.order-items tfoot tr:last-child {
+  /* border-bottom: 0.24em solid black; */
+  margin-bottom: 6em;
+}
+.order-log-container {
+  padding: 15px;
+  border: 1px solid #e7e7e7;
+  font-size: 14px;
+}
+.order-log-container h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.order-log-description {
+  background-color: #efefef;
+  padding: 15px;
+}
+.order-log-description p {
+  margin-bottom: 0;
+}
+.order-log-timestamp {
+  padding-bottom: 15px;
+}
+.order-log-timestamp p {
+  font-size: 12px;
+  color: #999999;
+  text-decoration: underline;
+}
+
+.cssload-container {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 9999;
+}
+
+.save-button {
+  background-color: #ffa500;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 600;
+  border: 1px solid #ffa500;
+}
+
+.save-button:focus {
+  border: 1px solid #ffa500;
+}
+
+.save-button:hover {
+  border: 1px solid #ffa500;
+  background-color: #fff;
+  color: #ffa500;
+}
+
+.cssload-speeding-wheel {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 48%;
+  top: 40%;
+  width: 63px;
+  height: 63px;
+  margin: 0 auto;
+  border: 4px solid rgb(0, 0, 0);
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: cssload-spin 500ms infinite linear;
+  -o-animation: cssload-spin 500ms infinite linear;
+  -ms-animation: cssload-spin 500ms infinite linear;
+  -webkit-animation: cssload-spin 500ms infinite linear;
+  -moz-animation: cssload-spin 500ms infinite linear;
+}
+
+.newWindow {
+  top: 30%;
+  position: absolute;
+  background-color: #000;
+  color: white;
+  width: 112px;
+  left: 47%;
+  padding: 5px;
+  text-align: center;
+}
+
+@keyframes cssload-spin {
+  100% {
+    transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes cssload-spin {
+  100% {
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-ms-keyframes cssload-spin {
+  100% {
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes cssload-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes cssload-spin {
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.view-order .approver-history-table tr:nth-child(even) {
+  background-color: #fafeff;
+}
+.view-order .approver-history-table tr:nth-child(odd) {
+  background-color: #edfaff;
+}
+.view-order .approver-history-table td {
+  background-color: transparent;
+}
+.view-order .approver-history-table th {
+  background-color: #d6ecf5;
+  border: 1px solid #dee2e6;
+}
+
+/* Small screens (2 items per row) */
+@media (max-width: 767px) {
+  /* Apply #fafeff to even rows */
+  .view-order .requester-info:nth-of-type(4n + 3),
+  .view-order .requester-info:nth-of-type(4n + 4) {
+    background-color: #fafeff;
+  }
+
+  /* Apply #edfaff to odd rows */
+  .view-order
+    .requester-info:not(:nth-of-type(4n + 3)):not(:nth-of-type(4n + 4)) {
+    background-color: #edfaff;
+  }
+}
+
+/* Medium+ screens (3 items per row) */
+@media (min-width: 768px) {
+  /* Apply #fafeff to even rows */
+  .view-order .requester-info:nth-of-type(6n + 4),
+  .view-order .requester-info:nth-of-type(6n + 5),
+  .view-order .requester-info:nth-of-type(6n + 6) {
+    background-color: #fafeff;
+  }
+
+  /* Apply #d6ecf5 to odd rows */
+  .view-order
+    .requester-info:not(:nth-of-type(6n + 4)):not(:nth-of-type(6n + 5)):not(
+      :nth-of-type(6n + 6)
+    ) {
+    background-color: #edfaff;
+  }
+}
+
+.tbl-status {
+  text-align: center;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.status-approved {
+  color: green;
+  font-weight: bold;
+  background-color: rgb(222, 253, 222);
+}
+.status-expired {
+  color: rgb(187, 0, 0);
+  font-weight: bold;
+  background-color: rgb(243, 193, 193);
+}
+.status-expire-soon {
+  color: rgb(223, 121, 5);
+  font-weight: bold;
+  background-color: rgb(250, 219, 183);
+}
+.status-pending {
+  color: rgb(185, 183, 29);
+  font-weight: bold;
+  background-color: rgb(245, 244, 205);
+}
+.status-review {
+  color: rgb(94, 94, 94);
+  font-weight: bold;
+  background-color: rgb(218, 218, 218);
+}
+.status-pending {
+  color: rgb(185, 183, 29);
+  font-weight: bold;
+  background-color: rgb(245, 244, 205);
+}
+
+::ng-deep .expiry-date .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+::ng-deep .advanced-pie-legend .legend-items-container .legend-items .legend-item .item-value {
+    margin-top: 10px !important;
+}
+
+
+.counter-item {
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+  transition: background-color 0.2s;
+}
+
+.counter-item:hover {
+  background-color: #f5f9ff;
+}
+
+.counter-item.selected {
+  background-color: #dfdad1;
+  border-color: #d8ab5d;
+  font-weight: 600;
+}
+
+/* Footer button aligned right */
+.action-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}

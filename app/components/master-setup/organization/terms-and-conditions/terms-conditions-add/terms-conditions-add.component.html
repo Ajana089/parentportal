@@ -1,0 +1,174 @@
+<div class="crm-body">
+
+<form [formGroup]="termForm" (ngSubmit)="onSave()" class="signin-form">
+    <main id="content" style="min-height: 100vh">
+        <div class="form-card">
+            <div class="form-card-header" (click)="toggleCard('card1')">
+          <div class="form-card-title">
+            <div class="form-card-icon ic-red">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <div>
+              <div class="form-card-label">
+               Terms and Coditions
+                <span class="form-card-required-badge">Required</span>
+              </div>
+            </div>
+          </div>
+          <i
+            class="fa-solid fa-chevron-up form-card-toggle"
+            [class.open]="!collapsedCards['card1']"
+          ></i>
+        </div>
+        <div class="form-card-body" [class.collapsed]="collapsedCards['card1']">
+           <div class="row gy-4">
+                  <div class="col-12 col-md-6">
+                     <label class="form-label-crm"
+                     >Business Unit<span class="req">*</span>
+                     </label>
+                     <mat-form-field class="w-100" appearance="outline">
+                     <mat-label>Select Business Unit</mat-label>
+                     <mat-select formControlName="BusinessUnitID">
+                     <mat-option *ngFor="let item of  businessid" [value]="item.ID">
+                     {{item.BUName}}
+                     </mat-option>
+                     </mat-select>
+                     </mat-form-field>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-crm"
+                     >Division Master Name<span class="req">*</span>
+                     </label>
+                    <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Select Division Master</mat-label>
+                    <mat-select formControlName="Division" multiple>
+                     <mat-option *ngFor="let item of divisionid" [value]="item.ID">
+                     {{item.DivisionName}}
+                     </mat-option>
+                     </mat-select>
+                     </mat-form-field>
+                    </div>
+            </div>
+          <div class="row gy-4">
+            <div class="col-12 col-md-6">
+            <label class="form-label-crm"
+            >Term Code <span class="req">*</span>
+              </label>
+             <mat-form-field class="w-100" appearance="outline">
+             <input matInput formControlName="TermCode">
+             </mat-form-field>
+             </div>
+             <div class="col-12 col-md-6">
+                     <label class="form-label-crm"
+                     >Organization<span class="req">*</span>
+                     </label>
+                      <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Select Organization</mat-label>
+                      <mat-select formControlName="Organization" multiple>
+                       <mat-option *ngFor="let item of organizationid" [value]="item.ID">
+                       {{item.OrgName}}
+                       </mat-option>
+                       </mat-select>
+                       </mat-form-field> 
+                      </div> 
+            
+          </div>
+         <div class="row gy-4">
+            <div class="col-12 col-md-6">
+            <label class="form-label-crm"
+            >Description<span class="req">*</span>
+            </label>
+            <mat-form-field class="w-100" appearance="outline">
+             <textarea matInput formControlName="Description"></textarea>
+             </mat-form-field>
+          </div>
+           <div class="col-12 col-md-6">
+              <label class="form-label-crm"
+                >Print Position <span class="req">*</span>
+              </label>
+            <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Select Print Position</mat-label>
+            <mat-select formControlName="PrintPosition">
+            <mat-option *ngFor="let item of printPositions" [value]="item">
+            {{item}}
+            </mat-option>
+            </mat-select>
+            </mat-form-field>
+           </div>
+         </div>
+          <div class="row gy-4">
+              <div class="col-12 col-md-6">
+              <label class="form-label-crm"
+                >App Logic<span class="req">*</span>
+              </label>
+               <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Select Application Logic</mat-label>
+               <mat-select formControlName="AppLogic">
+               <mat-option *ngFor="let item of appLogicOptions" [value]="item">
+               {{item}}
+               </mat-option>
+               </mat-select>
+                </mat-form-field>
+              </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label-crm"
+                   >Enforcement<span class="req">*</span>
+                   </label>
+                   <mat-form-field class="w-100" appearance="outline">
+                   <mat-label>Select Enforcement</mat-label>
+                   <mat-select formControlName="Enforcement">
+                   <mat-option *ngFor="let item of enforcementOptions" [value]="item">
+                   {{item}}
+                   </mat-option>
+                   </mat-select>
+                   </mat-form-field>
+                </div>
+            </div>
+           
+              <div class="row gy-4">
+              <div class="col-12 col-md-6">
+             <label class="form-label-crm"
+             >Category<span class="req">*</span>
+              </label>
+             <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Select Category</mat-label>
+             <mat-select formControlName="Category">
+             <mat-option *ngFor="let item of categories" [value]="item">
+              {{item}}
+             </mat-option>
+             </mat-select>
+             </mat-form-field>
+            </div>
+             <div class="col-12 col-md-6" *ngIf="request_id > 0">
+          <label class="form-label-crm">Status
+            <span class="req">*</span> </label>
+              <mat-radio-group
+                class="w-100"
+                appearance="outline"
+                formControlName="Status"
+                aria-label="Select an option"
+              >
+              <mat-radio-button [value]="true">Active</mat-radio-button>
+              <mat-radio-button [value]="false">Inactive</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          </div>
+       </div>
+    </main>
+     <!-- STICKY ACTION BAR -->
+    <div class="form-action-bar">
+      <div class="form-action-bar-left"></div>
+      <div class="form-action-bar-right">
+        <button class="btn-crm btn-crm-blue" type="submit" *ngIf="!isDisabled">
+          <i class="fa-solid fa-paper-plane"></i>
+          {{ request_id > 0 ? "Update Terms and Conditions" : "Add Terms and Conditions" }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>

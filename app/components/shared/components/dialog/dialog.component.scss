@@ -1,0 +1,41 @@
+// .DRAFT{
+//     background-color: #11ABEF;
+//     color: #fff
+// }
+// .UPDATE.REQUEST{
+//     background-color: #11ABEF;
+//     color: #fff
+// }
+// .ACCEPTED{
+//     background-color: #2DCE97;
+//     color: #fff
+// }
+// .close-dialog{
+//     cursor: pointer;
+// }
+// .PENDING{
+//     background-color: #FB7E40;
+//     color: #fff;
+// }
+// .REJECT.FILING{
+//     background-color: #FB7E40;
+//     color: #fff;
+// }
+// .REJECTED{
+//     background-color: #F5494A;
+//     color: #fff;
+// }
+// .COMPLETED{
+//     background-color: #7632cc;
+//     color: #fff;
+// }
+
+.mat-mdc-dialog-surface {
+    border-radius: 0px !important;
+    padding: 30px !important;
+}
+
+::ng-ddep .mat-mdc-dialog-surface {
+    border-radius: 0px !important;
+    padding: 30px !important;
+}

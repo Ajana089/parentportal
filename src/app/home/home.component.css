@@ -1,0 +1,32 @@
+.backscreen{
+    background-color:orange;
+    margin:20px;
+    margin-bottom: 10px;;
+}
+.container{
+    display:flex;
+    justify-content: end;
+}
+.container1{
+    display:flex;
+    justify-items: flex-end;
+}
+.navbarit{
+    display: flex;
+    flex-direction: column;
+}
+.btncolor{
+    background-color:orange;
+    color: blue;
+    border: none;
+}
+
+.username{
+    color:black;
+    font-size: medium;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.fontcolor{
+    color: brown;
+    text-shadow: azure;
+}

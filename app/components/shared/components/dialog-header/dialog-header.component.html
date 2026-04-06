@@ -1,0 +1,9 @@
+<mat-toolbar class="admin-toolbar">
+    <button mat-icon-button (click)="closeDialog()">
+        <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    <div class="full-width mt-10">
+        {{dialogTitle}}
+        <router-outlet name="dialog-header-top"></router-outlet>
+    </div>
+</mat-toolbar>

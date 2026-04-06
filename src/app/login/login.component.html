@@ -1,0 +1,112 @@
+<div class="container">
+  <!-- <div class="form-box">
+
+    <h2 *ngIf="flag">Login</h2>
+    <h2 *ngIf="!flag">SignUp</h2>
+
+    <form [formGroup]="LoginForm" 
+          (ngSubmit)="flag ? onSubmit() : onRegister()">
+
+      <div class="mb-3">
+        <label>Username:</label>
+        <input formControlName="username" />
+        <div *ngIf="username.invalid && username.touched" class="error">
+          Name is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>Password:</label>
+        <input type="password" formControlName="password" />
+        <div *ngIf="password.invalid && password.touched" class="error">
+          Password is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" [disabled]="LoginForm.invalid">
+          {{ flag ? 'Login' : 'Register' }}
+        </button>
+      </div>
+
+      <div *ngIf="loginError" style="color: red;">
+        Username or Password not matching
+      </div>
+
+    </form>
+
+  </div> -->
+
+  <!-- <div class="sign">
+    <a routerLink="/registration">Do you want to Sign up?</a>
+  </div> -->
+  <div class="container">
+  <div class="form-box">
+
+    <h2 *ngIf="flag">Login</h2>
+    <h2 *ngIf="!flag">SignUp</h2>
+
+    <form [formGroup]="LoginForm" 
+          (ngSubmit)="flag ? onSubmit() : onRegister()">
+
+      <div class="mb-3">
+        <label>Username:</label>
+        <input formControlName="username" />
+        <div *ngIf="username.invalid && username.touched" class="error">
+          Name is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>Password:</label>
+        <input type="password" formControlName="password" />
+        <div *ngIf="password.invalid && password.touched" class="error">
+          Password is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" [disabled]="LoginForm.invalid">
+          {{ flag ? 'Login' : 'Register' }}
+        </button>
+      </div>
+
+      <div *ngIf="loginError" style="color: red;">
+        Username or Password not matching
+      </div>
+
+    </form>
+
+  </div>
+
+  <!-- <div class="sign">
+    <a routerLink="/registration">Do you want to Sign up?</a>
+  </div> -->
+
+
+  <div class="btnclass sign">
+  <div *ngIf="flag">
+    <!-- <button (click)="changeAction()">Do you want to Sign up?</button> -->
+     <p class="d-inline-flex gap-1">
+     <a  class="btn" role="button" data-bs-toggle="button" (click)="changeAction()">Do you want to Sign up?</a>
+    </p>
+    
+  </div>
+
+  <div *ngIf="!flag">
+   <!-- <button (click)="changeAction()"></button> -->
+    <p class="d-inline-flex gap-1">
+     <a  class="btn" role="button" data-bs-toggle="button" (click)="changeAction()">Do you want to Login?</a>
+    </p>
+  </div>
+</div>
+
+
+
+ 
+
+
+</div>
+
+
+</div>

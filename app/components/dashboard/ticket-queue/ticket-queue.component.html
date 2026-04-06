@@ -1,0 +1,97 @@
+<div *ngIf="loading" class="cssload-container">
+    <div class="cssload-speeding-wheel"></div>
+</div>
+
+<div class="master">
+    <div class="container-fluid view-order">
+        <div class="d-flex align-items-center justify-content-between" style="margin-bottom: 30px; margin-top: 30px;">
+            <!-- Left: Icon + Title -->
+            <div class="d-flex align-items-center">
+                <mat-icon style="
+                font-size: 35px;
+                color: #d3d3d4;
+                margin-right: 10px;
+                width: 35px;
+                height: 35px;
+            ">sync_alt</mat-icon>
+                <h5 class="mb-0" style="font-weight: 700">
+                    Please select Service
+                </h5>
+            </div>
+
+            <div>
+                <button class="btn-close1" mat-icon-button (click)="closeDialog()">
+                    X
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="main-content" style="      padding-bottom: 30px;">
+    <section class="container-fluid white-bg">
+        <div class="row">
+            <div class="col-12">
+                <div class="counter-item" [class.selected]="selectedCounter === queue"
+                    *ngFor="let queue of queues; let i = index" (click)="selectItem(queue)">
+                    {{ i + 1 }} . {{queue.QueueName}}
+                </div>
+
+                <!-- Footer Action -->
+                <div class="action-footer">
+                    <button class="btn btn-success" [disabled]="!selectedCounter" (click)="printTicket()">
+                        Print Ticket
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<section>
+    <div id="invoice" class="container" style="display: none;">
+        <div class="receipt">
+            <div class="center row">
+                <img src="../../../../assets/img/Logo/Artboard1.png" alt="Queue Portal"
+                    class="brand-logo" />
+                <div class="title">{{ printModel?.School_Address }}</div>
+            </div>
+            <div class="hr"></div>
+
+            <div class="center section">
+                <div class="bold normal vertical-margin-10">RECEPTION</div>
+                <div class="small">Your Token Number is</div>
+                <div class="token">{{ printModel?.TicketNo }}</div>
+            </div>
+
+            <div class="section normal center" *ngIf="printModel?.IsScheduleAppointment"> 
+                No. of Waiting Customers - <span class="bold">{{ printModel?.WaitingCustomers }}</span>
+            </div>
+            <div class="section small center vertical-margin-10">
+                Please be seated. You will be served soon.
+            </div>
+            <div *ngIf="printModel?.IsScheduleAppointment" class="section normal center bold">
+                Appointment Scheduled ({{ printModel?.AppointmentDate | date:'HH:mm' }})
+            </div>
+            <div *ngIf="!printModel?.IsScheduleAppointment" class="section normal center bold">
+                Walk-In Customer
+            </div>
+
+            <div class="dash vertical-margin-10"></div>
+
+            <div class="">
+                <div class="small center">{{ date | date:'dd-MMM-yy HH:mm:ss' }}</div>
+            </div>
+
+            <div class="hr"></div>
+
+            <div class="center small">
+                Thank you
+            </div>
+            <div class="bottom-space"></div>
+        </div>
+    </div>
+</section>

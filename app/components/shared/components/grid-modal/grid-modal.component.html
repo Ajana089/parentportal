@@ -1,0 +1,20 @@
+<mat-icon (click)="closeDialog()" style="position: relative;left: -10px;" class="float-right cursor-pointer">close</mat-icon>
+<div class="flex mt-20">
+    <div class="col-6">
+        {{searchLabel}}
+    </div>
+    <div class="col-6">
+        <!-- <input type="text" class="full-width" style="padding: 5px;border: none; color: gray; border-bottom: 1px solid;"
+            (keyup)="doFilter($event.target.value)" placeholder="Type to search..."> -->
+    </div>
+</div>
+
+<mat-table class="mt-20" *ngIf="columns.length" #table [dataSource]="dataSource">
+
+    <ng-container *ngFor="let column of columns" [cdkColumnDef]="column.field">
+        <mat-header-cell *cdkHeaderCellDef>{{ column.headerName }}</mat-header-cell>
+        <mat-cell *cdkCellDef="let row">{{ column.cell(row) }}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelectionChange(row)"></mat-row>
+</mat-table>

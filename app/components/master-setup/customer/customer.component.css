@@ -1,0 +1,15 @@
+::ng-deep .mat-mdc-dialog-inner-container.mdc-dialog__container {
+  max-height: 100vh;
+}
+.clickable-row {
+  cursor: pointer;
+}
+
+.clickable-row:hover {
+  background-color: #f5f7fa;
+}
+
+.clickable-value {
+  color: var(--blue-dark);
+  font-weight: 700;
+}

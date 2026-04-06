@@ -1,0 +1,240 @@
+<div class="crm-body">
+  <form [formGroup]="customerForm" (ngSubmit)="onSave()" class="signin-form">
+    <main id="content" style="min-height: 100vh">
+      <!-- Card 1: Company Information -->
+      <div class="form-card">
+        <div class="form-card-header" (click)="toggleCard('card1')">
+          <div class="form-card-title">
+            <div class="form-card-icon ic-red">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <div>
+              <div class="form-card-label">
+                Customer Information
+                <span class="form-card-required-badge">Required</span>
+              </div>
+            </div>
+          </div>
+          <i
+            class="fa-solid fa-chevron-up form-card-toggle"
+            [class.open]="!collapsedCards['card1']"
+          ></i>
+        </div>
+        <div class="form-card-body" [class.collapsed]="collapsedCards['card1']">
+          <div class="row gy-4">
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm"
+                >Organization Name <span class="req">*</span>
+              </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                  class="filter-text"
+                  matInput
+                  formControlName="OrganizationName"
+                  [readonly]="isDisabled"
+                />
+              </mat-form-field>
+              <div class="field-hint">
+                <i class="fa-solid fa-circle-info"></i> The full Legal Name as
+                per Trade License
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm"
+                >Customer Type <span class="req">*</span>
+              </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-select
+                  placeholder="Select Year"
+                  formControlName="CustomerType"
+                >
+                  <mat-option value="">Please Select</mat-option>
+                  <mat-option value="Organization">Organization</mat-option>
+                  <mat-option value="Person">Person</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm"
+                >Taxpayer ID (TRN) <span class="req">*</span>
+              </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                  class="filter-text"
+                  matInput
+                  formControlName="TaxpayerID"
+                  [readonly]="isDisabled"
+                />
+              </mat-form-field>
+              <div class="field-hint">
+                <i class="fa-solid fa-circle-info"></i> The 15-digit VAT
+                Registration Number.
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm">D.U.N.S Number </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                  class="filter-text"
+                  matInput
+                  formControlName="DunsNumber"
+                  [readonly]="isDisabled"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm">Primary URL </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                  class="filter-text"
+                  matInput
+                  formControlName="PrimaryURL"
+                  [readonly]="isDisabled"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm">Account Description </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                  class="filter-text"
+                  matInput
+                  formControlName="AccountDescription"
+                  [readonly]="isDisabled"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm">Account Number </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                  class="filter-text"
+                  matInput
+                  formControlName="AccountNumber"
+                  [readonly]="isDisabled"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm">Registry ID </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                  class="filter-text"
+                  matInput
+                  formControlName="RegistryID"
+                  [readonly]="isDisabled"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2: Legal & Compliance Section -->
+      <div class="form-card">
+        <div class="form-card-header" (click)="toggleCard('card2')">
+          <div class="form-card-title">
+            <div class="form-card-icon ic-amber">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div>
+              <div class="form-card-label">
+                Legal & Compliance
+                <span class="form-card-required-badge">Required</span>
+              </div>
+            </div>
+          </div>
+          <i
+            class="fa-solid fa-chevron-up form-card-toggle"
+            [class.open]="!collapsedCards['card2']"
+          ></i>
+        </div>
+        <div class="form-card-body" [class.collapsed]="collapsedCards['card2']">
+          <div class="row gy-4">
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm"
+                >Trade License No <span class="req">*</span>
+              </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                  class="filter-text"
+                  matInput
+                  formControlName="TradeLicenseNo"
+                  [readonly]="isDisabled"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm"
+                >Trade License Expiry <span class="req">*</span>
+              </label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input
+                  matInput
+                  [matDatepicker]="datepicker"
+                  formControlName="TradeLicenseExpiryDate"
+                  readonly
+                  (click)="datepicker.open()"
+                  [min]="defaultDate"
+                />
+                <mat-datepicker #datepicker></mat-datepicker>
+                <mat-datepicker-toggle
+                  [for]="datepicker"
+                  matSuffix
+                ></mat-datepicker-toggle>
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm"
+                >Contact Email ID<span class="req">*</span>
+              </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                  class="filter-text"
+                  matInput
+                  formControlName="ContactEmailID"
+                  [readonly]="isDisabled"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm">Trade License Copy <span class="req">*</span></label>
+              <input
+                type="file"
+                accept=".pdf,.jpg,.jpeg"
+                (change)="onFileSelectedCopyTradeLicense($event)"
+              />
+              <div class="field-hint">
+                <i class="fa-solid fa-circle-info"></i> PDF/JPG
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label-crm">VAT Registration Certificate <span class="req">*</span></label>
+              <input
+                type="file"
+                accept=".pdf,.jpg,.jpeg"
+                (change)="onFileSelectedVatRegCert($event)"
+              />
+              <div class="field-hint">
+                <i class="fa-solid fa-circle-info"></i> PDF/JPG
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- STICKY ACTION BAR -->
+    <div class="form-action-bar">
+      <div class="form-action-bar-left"></div>
+      <div class="form-action-bar-right">
+        <button class="btn-crm btn-crm-blue" type="submit" >
+          <i class="fa-solid fa-paper-plane"></i> Create Customer
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>

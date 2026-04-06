@@ -1,0 +1,212 @@
+<div class="crm-body">
+    <form [formGroup]="productForm" (ngSubmit)="onSave()" class="signin-form">
+    <main id="content" style="min-height: 100vh">
+         <div class="form-card">
+          <div class="form-card-header" (click)="toggleCard('card1')">
+          <div class="form-card-title">
+            <div class="form-card-icon ic-red">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <div>
+              <div class="form-card-label">
+                Location Master
+                <span class="form-card-required-badge">Required</span>
+              </div>
+            </div>
+          </div>
+          <i
+            class="fa-solid fa-chevron-up form-card-toggle"
+            [class.open]="!collapsedCards['card1']"
+          ></i>
+        </div>
+          <div class="form-card-body" [class.collapsed]="collapsedCards['card1']">
+
+     <div class="row gy-4">
+      <div class="col-12 col-md-6">
+                     <label class="form-label-crm"
+                     >Business Unit<span class="req">*</span>
+                     </label>
+                     <mat-form-field class="w-100" appearance="outline">
+                     <mat-label>Select Business Unit</mat-label>
+                     <mat-select formControlName="BusinessUnitID">
+                     <mat-option *ngFor="let item of  businessid" [value]="item.ID">
+                     {{item.BUName}}
+                     </mat-option>
+                     </mat-select>
+                     </mat-form-field>
+                    </div>
+                     <div class="col-12 col-md-6">
+                      <label class="form-label-crm"
+                     >Division Master Name<span class="req">*</span>
+                     </label>
+                    <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Select Division Master</mat-label>
+                    <mat-select formControlName="Division" multiple>
+                     <mat-option *ngFor="let item of divisionid" [value]="item.ID">
+                     {{item.DivisionName}}
+                     </mat-option>
+                     </mat-select>
+                     </mat-form-field>
+                    </div>
+               </div>
+        
+     <div class="row gy-4">
+     <div class="col-12 col-md-6">
+       <label class="form-label-crm"
+                     > Location Code ID<span class="req">*</span>
+                     </label>
+    <mat-form-field  class="w-100" appearance="outline">
+    <mat-label>Select Location Code</mat-label>
+     <mat-select  (selectionChange)="onCodeChange($event.value)" formControlName="LocationCodeID" >
+      @for (option of locationcode; track option) {
+      <mat-option [value]="option.ID">
+      {{ option.LocationCode }}
+      </mat-option>
+      }
+    </mat-select>
+   </mat-form-field >
+    </div> 
+   <div class="col-12 col-md-6">
+       <label class="form-label-crm"
+                     > Location Name<span class="req">*</span>
+                     </label>
+    <mat-form-field  class="w-100" appearance="outline">
+    <mat-label>Location Name</mat-label>
+    <input matInput formControlName="LocationName" />
+    </mat-form-field>
+    </div>
+     </div> 
+      
+    <div class="row gy-4">
+     <div class="col-12 col-md-6"> 
+       <label class="form-label-crm"
+                     > Emirates ID<span class="req">*</span>
+                     </label>
+     <mat-form-field  class="w-100" appearance="outline">
+     <mat-label>Select Emirate ID</mat-label>
+     <mat-select  (selectionChange)="onEmirateChange($event.value)" formControlName="EmirateID">
+      @for (option of emiratescode; track option) {
+      <mat-option [value]="option.ID">
+      {{ option.EmirateCode }}
+      </mat-option>
+      }
+    </mat-select>
+    </mat-form-field >
+    </div>
+    <div class="col-12 col-md-6">
+       <label class="form-label-crm"
+                     >Emirate<span class="req">*</span>
+                     </label>
+    <mat-form-field  class="w-100" appearance="outline" >
+    <mat-label>Emirate</mat-label>
+    <input matInput  formControlName="Emirate" />
+    </mat-form-field>
+    </div>
+   </div> 
+  
+   <div class="row gy-4">
+    <div class="col-12 col-md-6">
+    <label class="form-label-crm"
+                     > StationNo<span class="req">*</span>
+                     </label>
+    <mat-form-field class="w-100" appearance="outline">
+    <input
+    class="filter-text" matInput formControlName="StationNo"
+    [readonly]="isDisabled"/>
+    </mat-form-field>
+      </div>
+    <div class="col-12 col-md-6">
+    <label class="form-label-crm">Station Name <span class="req">*</span>
+    </label>
+    <mat-form-field class="w-100" appearance="outline">
+    <input
+    class="filter-text" matInput formControlName="StationName"
+    [readonly]="isDisabled"/>
+    </mat-form-field>
+      </div>
+      </div>
+      <div class="row gy-4">
+       <div class="col-12 col-md-6">
+       <label class="form-label-crm">Long Distance Applicable(Yes/No)<span class="req">*</span> 
+       </label>
+       <mat-radio-group class="w-100" appearance="outline"
+       formControlName="Distance" aria-label="Select an option">
+      <mat-radio-button value="Yes">Yes</mat-radio-button>
+      <mat-radio-button value="No">No</mat-radio-button>
+      </mat-radio-group>
+      </div>
+      </div>
+   
+     <div class="row gy-4">
+      <div class="col-12 col-md-6">
+        <label class="form-label-crm"
+                >ReadymixTripRate <span class="req">*</span>
+              </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                class="filter-text"
+                matInput
+               formControlName="ReadymixTripRate"
+              [readonly]="isDisabled"
+                />
+              </mat-form-field>
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label-crm"
+                >BlockTrailerRate <span class="req">*</span>
+              </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                class="filter-text"
+                matInput
+               formControlName="BlockTrailerRate"
+              [readonly]="isDisabled"
+                />
+              </mat-form-field>
+      </div>
+</div>
+<div class="row gy-4">
+    <div class="col-12 col-md-6">
+        <label class="form-label-crm"
+                > PumpSurcharge <span class="req">*</span>
+              </label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input
+                class="filter-text"
+                matInput
+               formControlName="PumpSurcharge"
+              [readonly]="isDisabled"
+                />
+              </mat-form-field>
+      </div>
+   <div class="col-12 col-md-6" *ngIf="request_id > 0">
+          <label class="form-label-crm">Status
+            <span class="req">*</span> </label>
+              <mat-radio-group
+                class="w-100"
+                appearance="outline"
+                formControlName="Status"
+                aria-label="Select an option"
+              >
+              <mat-radio-button [value]="true">Active</mat-radio-button>
+              <mat-radio-button [value]="false">Inactive</mat-radio-button>
+              </mat-radio-group>
+            </div>
+         </div>
+ </div>
+</div>
+    </main>
+     <div class="form-action-bar">
+      <div class="form-action-bar-left"></div>
+      <div class="form-action-bar-right">
+        <button class="btn-crm btn-crm-blue" type="submit" *ngIf="!isDisabled">
+          <i class="fa-solid fa-paper-plane"></i>
+          {{ request_id > 0 ? "Update Location Master" : "Add Location Master" }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>

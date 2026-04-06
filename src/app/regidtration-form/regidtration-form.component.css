@@ -1,0 +1,95 @@
+
+.container {
+  display: flex;              
+  justify-content: center;     
+  align-items: center;        
+  min-height: 100vh;           
+  background-color:white;     
+}
+
+
+.form-box {
+  background-color: orange;      
+  padding: 30px;
+  border-radius: 10px;
+  width: 350px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 15px #000;
+}
+
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: none;
+}
+
+.error {
+      color: #ff4d4d;
+      font-size: 12px;
+      margin-top: 3px;
+      text-align: left;
+    }
+
+
+button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.token-box{
+
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 5px;
+  font-size: medium;
+  color: darkgoldenrod;
+  border: none;
+}
+h4{
+  color:bisque
+}
+.token-container {
+  position: relative;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background:black;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  color:white;
+}
+a:hover {
+  text-decoration: none;
+  color:red;
+}
+
+
+

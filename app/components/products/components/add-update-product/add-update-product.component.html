@@ -1,0 +1,146 @@
+<div class="close-button d-flex justify-content-end">
+    <button class="btn-close1" mat-icon-button (click)="closeDialog()">X</button>
+</div>
+<div class="container-fluid view-order">
+    <div>
+      <div class="d-flex align-items-center mb-5">
+        <mat-icon
+          style="
+            font-size: 35px;
+            color: #d3d3d4;
+            margin-right: 10px;
+            width: 35px;
+            height: 35px;
+          "
+          >shopping_basket</mat-icon
+        >
+        <h5 class="mb-0" style="font-weight: 700">
+          Add New Product
+        </h5>
+      </div>
+
+
+    </div>
+
+    <form
+        [formGroup]="productForm"
+        (ngSubmit)="onSave()"
+        class="signin-form">
+
+        <div class="row">
+
+            <div class="col-6">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label class="filter-label">Select Category</mat-label>
+                  <mat-select
+                    placeholder="Select Category"
+                    formControlName="category_id"
+                    name="selectedCategory"
+                  >
+                    <mat-option value="">Please Select</mat-option>
+                    <mat-option *ngFor="let item of categories" [value]="item.Id">
+                      {{ item.CategoryName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+    
+              <div class="col-6">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label class="filter-label">Select Catalogue</mat-label>
+                  <mat-select
+                    placeholder="Select Catalogue"
+                    formControlName="vendor_id"
+                    name="selectedCategory"
+                  >
+                    <mat-option value="">Please Select</mat-option>
+                    <mat-option *ngFor="let item of vendors" [value]="item.Id">
+                      {{ item.VendorName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              
+              <div class="col-6">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label class="filter-label">Product Name</mat-label>
+                    <input
+                        class="filter-text"
+                        matInput
+                        placeholder="Product Name"
+                        formControlName="product_name"
+                    />
+                </mat-form-field>
+              </div>
+
+              <div class="col-6">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label class="filter-label">Grade</mat-label>
+                    <input
+                        class="filter-text"
+                        matInput
+                        placeholder="Grade"
+                        formControlName="grade"
+                    />
+                </mat-form-field>
+              </div>
+
+              <div class="col-12">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label class="filter-label"
+                      >Product Description</mat-label
+                    >
+                    <textarea
+                      class="filter-text"
+                      matInput
+                      placeholder="Product Description"
+                      formControlName="product_description"
+                    ></textarea>
+                  </mat-form-field>
+              </div>
+
+              <div class="col-6">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label class="filter-label">Select Item Type</mat-label>
+                  <mat-select
+                    placeholder="Select Item Type"
+                    formControlName="item_type"
+                  >
+                    <mat-option value="">Please Select</mat-option>
+                    <mat-option value="Consumable">Consumable</mat-option>
+                    <mat-option value="Non-Consumable">Non-Consumable</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-6">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label class="filter-label">Unit of Measure</mat-label>
+                    <input
+                        class="filter-text"
+                        matInput
+                        placeholder="Unit of Measure"
+                        formControlName="uom"
+                    />
+                </mat-form-field>
+              </div>
+
+              <div class="col-6">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label class="filter-label">Price</mat-label>
+                    <input
+                        class="filter-text"
+                        matInput
+                        placeholder="Price"
+                        formControlName="price"
+                    />
+                </mat-form-field>
+              </div>
+              
+
+        </div>
+
+    </form>
+
+    
+</div>

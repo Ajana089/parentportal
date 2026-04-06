@@ -1,0 +1,199 @@
+<div class="container-fluid view-order">
+  <div>
+    <div class="filter-container justify-content-between">
+      <div class="topbar-search">
+        <i
+          class="fa-solid fa-magnifying-glass"
+          style="color: var(--muted); font-size: 13px"
+        ></i>
+        <input type="text" (keyup)="applyFilter($event)" placeholder="Search" />
+      </div>
+      <button class="icon-btn" (click)="openAddDialog()" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+ <div class="table-card">
+    <div class="table-wrap">
+      <table
+        mat-table
+        matTableExporter
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+        #exporter="matTableExporter"
+      >
+       <ng-container matColumnDef="BusinessUnit">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by BusinessUnit"
+          >
+            Business Unit
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.BusinessUnit }}
+          </td>
+        </ng-container>
+
+         <ng-container matColumnDef="Division">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Division"
+          >
+            Division Name
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Division }}
+          </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="Organization">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Organization"
+          >
+            Organization
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Organization }}
+          </td>
+        </ng-container>
+
+         <ng-container matColumnDef="TermCode">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by TermCode"
+          >
+            TermCode
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.TermCode }}
+          </td>
+        </ng-container>
+  
+         <ng-container matColumnDef="Category">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Category"
+          >
+            Category
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Category }}
+          </td>
+        </ng-container>
+         <ng-container matColumnDef="Description">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Description"
+          >
+            Description
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Description }}
+          </td>
+        </ng-container>
+
+         <ng-container matColumnDef="PrintPosition">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by PrintPosition"
+          >
+            Print Position
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.PrintPosition }}
+          </td>
+        </ng-container>
+
+         <ng-container matColumnDef="AppLogic">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by AppLogic"
+          >
+            AppLogic
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.AppLogic }}
+          </td>
+        </ng-container>
+       
+        <!-- Order Date Column -->
+        <ng-container matColumnDef="Enforcement">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Enforcement"
+          >
+            Enforcement
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Enforcement }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Status">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Status"
+          >
+            Status
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Status == true ? "Active" : "Inactive" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="editOrganizationID(element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator
+        [pageSizeOptions]="[50, 100, 200]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>
+
+

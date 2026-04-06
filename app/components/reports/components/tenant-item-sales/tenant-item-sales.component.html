@@ -1,0 +1,795 @@
+<div class="main-content" style="display: flex; flex-direction: column">
+  <section class="container-fluid white-bg">
+    <form>
+      <div>
+        <div class="row">
+
+          <div class="col-sm col-md-4">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label class="filter-label">Month</mat-label>
+              <mat-select
+                placeholder="Select Month"
+                [(ngModel)]="month"
+                name="month"
+              >
+              <mat-option value="">Please Select</mat-option>
+              <mat-option value="1">Jan</mat-option>
+              <mat-option value="2">Feb</mat-option>
+               <mat-option value="3">Mar</mat-option>
+                <mat-option value="4">Apr</mat-option>
+                <mat-option value="5">May</mat-option>
+                <mat-option value="6">Jun</mat-option>
+                <mat-option value="7">Jul</mat-option>
+                <mat-option value="8">Aug</mat-option>
+                <mat-option value="9">Sep</mat-option>
+                <mat-option value="10">Oct</mat-option>
+                <mat-option value="11">Nov</mat-option>
+                <mat-option value="12">Dec</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm col-md-4">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label class="filter-label">Year</mat-label>
+              <mat-select
+                placeholder="Select Year"
+                [(ngModel)]="year"
+                name="year"
+              >
+              <mat-option value="">Please Select</mat-option>
+              <!-- <mat-option value="2023">2023</mat-option>
+              <mat-option value="2024">2024</mat-option> -->
+              <mat-option value="2025">2025</mat-option>
+              <mat-option value="2026">2026</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        
+          <div class="col-md-auto col-sm-2 col">
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="searchOrders()"
+            >
+              Search Sales
+            </button>
+          </div>
+          <div class="col-md-auto col-sm-2 col">
+            <button
+              type="button"
+              (click)="exporter.exportTable('csv')"
+              class="btn btn-warning"
+            >
+              Export
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  <div
+    class="container-fluid product mt-5"
+    style="display: flex; flex-direction: column; flex-grow: 1"
+  >
+    <div class="w-100 d-flex justify-content-end">
+      <mat-form-field class="input-search" style="float: right; width: 350px">
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+      </mat-form-field>
+    </div>
+    <div class="mat-elevation-z8" style="overflow: auto; flex-grow: 1">
+      <table
+        mat-table
+        matTableExporter
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+        #exporter="matTableExporter"
+      >
+
+        <ng-container matColumnDef="seq">
+          <th mat-header-cell *matHeaderCellDef>Sr #</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+
+        <!-- Order Number Column -->
+        <ng-container matColumnDef="Store_ID" class="col-store-id">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Store_ID"
+            style="width: 150px;"
+          >
+          Store ID
+          </th>
+          <td mat-cell *matCellDef="let element" style="width: 150px;">
+            {{ element.Store_ID }}
+          </td>
+        </ng-container>
+
+        <!-- Order Date Column -->
+        <ng-container matColumnDef="Store_Name">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Store_Name"
+          >
+            Store Name
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Store_Name }}
+          </td>
+        </ng-container>
+
+         <ng-container matColumnDef="IntegrationStartDate">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by IntegrationStartDate"
+          >
+            Integration Start Date
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.IntegrationStartDate | date: 'dd-MMM-yyyy' }}
+          </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="Day1">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day1"
+          >
+           1
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day1 == 0 || element.Day1 == undefined) ? '#eb6f6f' : 'transparent' }">
+        
+            <span *ngIf="element.Day1 == 0 || element.Day1 == undefined">{{ element.Day1 || 0 }}</span>
+
+            <a *ngIf="element.Day1 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '1')">
+            {{ element.Day1 }}
+            </a>
+        
+        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day2">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day2"
+          >
+            2
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day2 == 0 || element.Day2 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day2 == 0 || element.Day2 == undefined">{{ element.Day2 || 0 }}</span>
+
+            <a *ngIf="element.Day2 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '2')">
+            {{ element.Day2 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day3">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day3"
+          >
+            3
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day3 == 0 || element.Day3 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day3 == 0 || element.Day3 == undefined">{{ element.Day3 || 0 }}</span>
+
+            <a *ngIf="element.Day3 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '3')">
+            {{ element.Day3 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <!-- Total Column -->
+        <ng-container matColumnDef="Day4">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day4"
+          >
+           4
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day4 == 0 || element.Day4 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day4 == 0 || element.Day4 == undefined">{{ element.Day4 || 0 }}</span>
+
+            <a *ngIf="element.Day4 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '4')">
+            {{ element.Day4 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day5">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day5"
+          >
+           5
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day5 == 0 || element.Day5 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day5 == 0 || element.Day5 == undefined">{{ element.Day5 || 0 }}</span>
+
+            <a *ngIf="element.Day5 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '5')">
+            {{ element.Day5 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="Day6">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day6"
+          >
+           6
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day6 == 0 || element.Day6 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day6 == 0 || element.Day6 == undefined">{{ element.Day6 || 0 }}</span>
+
+            <a *ngIf="element.Day6 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '6')">
+            {{ element.Day6 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day7">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day7"
+          >
+            7
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day7 == 0 || element.Day7 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day7 == 0 || element.Day7 == undefined">{{ element.Day7 || 0 }}</span>
+
+            <a *ngIf="element.Day7 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '7')">
+            {{ element.Day7 }}
+            </a>
+            
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day8">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day8"
+          >
+            8
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day8 == 0 || element.Day8 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day8 == 0 || element.Day8 == undefined">{{ element.Day8 || 0 }}</span>
+
+            <a *ngIf="element.Day8 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '8')">
+            {{ element.Day8 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <!-- Total Column -->
+        <ng-container matColumnDef="Day9">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day9"
+          >
+           9
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day9 == 0 || element.Day9 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day9 == 0 || element.Day9 == undefined">{{ element.Day9 || 0 }}</span>
+
+            <a *ngIf="element.Day9 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '9')">
+            {{ element.Day9 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day10">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day10"
+          >
+           10
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day10 == 0 || element.Day10 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day10 == 0 || element.Day10 == undefined">{{ element.Day10 || 0 }}</span>
+
+            <a *ngIf="element.Day10 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '10')">
+            {{ element.Day10 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="Day11">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day11"
+          >
+           11
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day11 == 0 || element.Day11 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day11 == 0 || element.Day11 == undefined">{{ element.Day11 || 0 }}</span>
+
+            <a *ngIf="element.Day11 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '11')">
+            {{ element.Day11 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day12">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day12"
+          >
+            12
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day12 == 0 || element.Day12 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day12 == 0 || element.Day12 == undefined">{{ element.Day12 || 0 }}</span>
+
+            <a *ngIf="element.Day12 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '12')">
+            {{ element.Day12 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day13">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day13"
+          >
+            13
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day13 == 0 || element.Day13 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day13 == 0 || element.Day13 == undefined">{{ element.Day13 || 0 }}</span>
+
+            <a *ngIf="element.Day13 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '13')">
+            {{ element.Day13 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <!-- Total Column -->
+        <ng-container matColumnDef="Day14">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day14"
+          >
+           14
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day14 == 0 || element.Day14 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day14 == 0 || element.Day14 == undefined">{{ element.Day14 || 0 }}</span>
+
+            <a *ngIf="element.Day14 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '14')">
+            {{ element.Day14 }}
+            </a>
+        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day15">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day15"
+          >
+           15
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day15 == 0 || element.Day15 == undefined) ? '#eb6f6f' : 'transparent' }">
+
+            <span *ngIf="element.Day15 == 0 || element.Day15 == undefined">{{ element.Day15 || 0 }}</span>
+
+            <a *ngIf="element.Day15 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '15')">
+            {{ element.Day15 }}
+            </a>
+        
+        </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="Day16">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day16"
+          >
+           16
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day16 == 0 || element.Day16 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day16 == 0 || element.Day16 == undefined">{{ element.Day16 || 0 }}</span>
+
+            <a *ngIf="element.Day16 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '16')">
+            {{ element.Day16 }}
+            </a>
+        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day17">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day17"
+          >
+            17
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day17 == 0 || element.Day17 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day17 == 0 || element.Day17 == undefined">{{ element.Day17 || 0 }}</span>
+
+            <a *ngIf="element.Day17 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '17')">
+            {{ element.Day17 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day18">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day18"
+          >
+            18
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day18 == 0 || element.Day18 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day18 == 0 || element.Day18 == undefined">{{ element.Day18 || 0 }}</span>
+
+            <a *ngIf="element.Day18 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '18')">
+            {{ element.Day18 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <!-- Total Column -->
+        <ng-container matColumnDef="Day19">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day19"
+          >
+           19
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day19 == 0 || element.Day19 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day19 == 0 || element.Day19 == undefined">{{ element.Day19 || 0 }}</span>
+
+            <a *ngIf="element.Day19 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '19')">
+            {{ element.Day19 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day20">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day20"
+          >
+           20
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day20 == 0 || element.Day20 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day20 == 0 || element.Day20 == undefined">{{ element.Day20 || 0 }}</span>
+
+            <a *ngIf="element.Day20 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '20')">
+            {{ element.Day20 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="Day21">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day21"
+          >
+           21
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day21 == 0 || element.Day21 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day21 == 0 || element.Day21 == undefined">{{ element.Day21 || 0 }}</span>
+
+            <a *ngIf="element.Day21 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '21')">
+            {{ element.Day21 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day22">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day22"
+          >
+            22
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day22 == 0 || element.Day22 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day22 == 0 || element.Day22 == undefined">{{ element.Day22 || 0 }}</span>
+
+            <a *ngIf="element.Day22 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '22')">
+            {{ element.Day22 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day23">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day23"
+          >
+            23
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day23 == 0 || element.Day23 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day23 == 0 || element.Day23 == undefined">{{ element.Day23 || 0 }}</span>
+
+            <a *ngIf="element.Day23 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '23')">
+            {{ element.Day23 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <!-- Total Column -->
+        <ng-container matColumnDef="Day24">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day24"
+          >
+           24
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day24 == 0 || element.Day24 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day24 == 0 || element.Day24 == undefined">{{ element.Day24 || 0 }}</span>
+
+            <a *ngIf="element.Day24 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '24')">
+            {{ element.Day24 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day25">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day25"
+          >
+           25
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day25 == 0 || element.Day25 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day25 == 0 || element.Day25 == undefined">{{ element.Day25 || 0 }}</span>
+
+            <a *ngIf="element.Day25 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '25')">
+            {{ element.Day25 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        
+        <!-- Status Column -->
+        <ng-container matColumnDef="Day26">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day26"
+          >
+           26
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day26 == 0 || element.Day26 == undefined) ? '#eb6f6f' : 'transparent' }">
+
+            <span *ngIf="element.Day26 == 0 || element.Day26 == undefined">{{ element.Day26 || 0 }}</span>
+
+            <a *ngIf="element.Day26 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '26')">
+            {{ element.Day26 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day27">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day27"
+          >
+            27
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day27 == 0 || element.Day27 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day27 == 0 || element.Day27 == undefined">{{ element.Day27 || 0 }}</span>
+
+            <a *ngIf="element.Day27 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '27')">
+            {{ element.Day27 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day28">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day28"
+          >
+            28
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day28 == 0 || element.Day28 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day28 == 0 || element.Day28 == undefined">{{ element.Day28 || 0 }}</span>
+
+            <a *ngIf="element.Day28 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '28')">
+            {{ element.Day28 }}
+            </a>
+
+          </td>
+        </ng-container>
+
+        <!-- Total Column -->
+        <ng-container matColumnDef="Day29">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day29"
+          >
+           29
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day29 == 0 || element.Day29 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day29 == 0 || element.Day29 == undefined">{{ element.Day29 || 0 }}</span>
+
+            <a *ngIf="element.Day29 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '29')">
+            {{ element.Day29 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day30">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day30"
+          >
+           30
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day30 == 0 || element.Day30 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day30 == 0 || element.Day30 == undefined">{{ element.Day30 || 0 }}</span>
+
+            <a *ngIf="element.Day30 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '30')">
+            {{ element.Day30 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day31">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Day31"
+          >
+           31
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Day31 == 0 || element.Day31 == undefined) ? '#eb6f6f' : 'transparent' }">
+            
+            <span *ngIf="element.Day31 == 0 || element.Day31 == undefined">{{ element.Day31 || 0 }}</span>
+
+            <a *ngIf="element.Day31 > 0" style="cursor: pointer !important; text-decoration: none; " href="javascript:void(0)" (click)="openDetails(element, '31')">
+            {{ element.Day31 }}
+            </a>
+
+        </td>
+        </ng-container>
+
+      
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <mat-paginator
+      [pageSizeOptions]="[50, 100, 200]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</div>
+
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>

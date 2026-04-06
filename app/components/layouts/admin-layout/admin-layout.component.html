@@ -1,0 +1,19 @@
+<!-- Mobile overlay -->
+<div class="sidebar-overlay"
+     [class.show]="layout.mobileSidebarOpen()"
+     (click)="closeOnOverlay()">
+</div>
+
+<!-- Sidebar -->
+<app-sidebar />
+
+<!-- Main wrapper -->
+<div class="main-wrapper" [class.expanded]="layout.sidebarCollapsed()">
+  <!-- Navbar -->
+  <app-navbar />
+
+  <!-- Page content -->
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

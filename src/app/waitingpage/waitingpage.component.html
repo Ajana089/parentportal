@@ -1,0 +1,87 @@
+<div class="container">
+  
+<div class="main-layout">
+  <div *ngIf=!serve >
+ <!-- Tokens available: {{ noTokens }}
+   -->
+  <div *ngIf="flag" class="section">
+    <div class="heading">NOW SERVING</div>
+
+    <div  class="info-line containertok">
+      <div *ngIf="token" class="tokenbox">Token: {{ token }}</div>
+      <div>
+     <div *ngIf="parentname">Parent: {{ parentname }}</div>
+      <div *ngIf="childname">Child: {{ childname }}</div>
+      <div *ngIf="mobnumber">Phone: {{ mobnumber }}</div>
+      <div class="time">{{time}}</div>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div *ngIf=serve class="main-layout word">
+  No tokens available
+ </div>
+ 
+  <!-- <div class="section">
+    <div *ngIf="!flag" class="heading"><h5>no one is in the queue</h5>
+    </div>
+    </div> -->
+
+    <div class="info-line">
+     <div class="buttonclass">
+        <div *ngIf=completebutton class="button1"><button type="button" class="btn btn-success rounded-pill" (click)="complete()" >complete</button></div>
+        <div *ngIf=nextbutton class="button1"><button type="button" class="btn btn-warning rounded-pill" (click)="next()">next</button></div>
+    </div>
+      
+    </div>
+  
+
+
+</div>
+
+<div>
+    
+</div>
+
+
+<div class="section2">
+
+<div class="part1">
+
+  <div style="border:10px;font-family: Arial, Helvetica, sans-serif;">WAITING QUEUE</div>
+  <div *ngIf="sdetails?.length > 0" >
+    <div *ngFor="let item of sdetails; let i = index" >
+      <div class="waitingsection1">
+   <div class="tokenbox1">{{i+1}}</div>
+   <div class="details">
+    <div>{{item.token}}</div>
+     <div>{{item.parent}}.{{item.child}}</div>
+     <div class="time">{{time}}</div>
+     </div>
+   </div>
+    </div>
+  </div>  
+   <div *ngIf="sdetails.length === 0" class="main-layout">
+    <div class="word">waiting queue is empty</div>
+   </div>
+  </div>
+
+
+<div class="part2">
+<div>COMPLETED</div>
+
+  <div *ngIf="servingtoken && completedtoken">
+    <div *ngFor="let item of servingtoken; let i = index">
+    <div  class="waitingsection">
+   <div class="tokenbox2">{{item.token}}</div>
+   <div class="details">
+     <div>{{item.parent}}</div>
+     <div class="time">{{this.completedtime}}</div>
+   </div>
+   
+  </div>
+    
+</div>  
+</div>
+</div>
+</div>

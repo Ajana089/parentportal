@@ -1,0 +1,375 @@
+<section class="shop-container container-fluid py-3">
+  <div class="row gy-3">
+    <!-- Column for Cart -->
+    <div class="col-md-4 col-12">
+      <!-- Container for Cart -->
+      <div
+        class="bg-white cart-container d-flex flex-column justify-content-between"
+      >
+        <div class="row">
+          <div class="col-6">
+            <a
+              href="/requested-orders"
+              class="btn btn-secondary"
+              style="width: 100%; height: 40px; color: #fff"
+            >
+              <p class="mb-0">Home</p>
+            </a>
+          </div>
+          <div class="col-6">
+            <button
+              type="button"
+              class="btn btn-warning"
+              style="width: 100%; height: 40px; color: #fff"
+              (click)="resetOrderItems()"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- <div
+          class="cart-header d-flex justify-content-between w-100 align-items-center"
+        >
+          <div>
+          </div>
+        </div> -->
+        <hr />
+        <!-- Cart-body-content Title -->
+        <p><strong>Cart{{ this.orderData && this.orderData.order_id ? ' Order#: ' + this.orderData.order_id : '' }}</strong></p>
+
+        <!-- Cart Body -->
+        <div style="flex-grow: 1; overflow-y: auto; overflow-x: hidden">
+          <!-- Cart-body Content -->
+          <div class="cart-body-content">
+            <!-- Cart-body-content Items-Container -->
+            <div class="cart-items">
+              <!-- Cart-body-content Item -->
+              <div class="ordered-products">
+                <!-- Cart Products -->
+                <div class="pb-3 px-2" *ngFor="let item of productsInCart">
+                  <div class="item-product">
+                    <div
+                      class="d-flex"
+                      style="
+                        background-color: #f5f5f5;
+                        border-radius: 5px;
+                        overflow: hidden;
+                        padding: 7px;
+                      "
+                    >
+                      <img
+                        [src]="item?.image_url"
+                        alt="Uniform"
+                        class="img-responsive ordered-item-img"
+                        (error)="setDefaultImage($event)"
+                      />
+                      <div class="w-100 d-flex flex-column">
+                        <div class="w-100 d-flex justify-content-between">
+                          <div>
+                            <p class="ordered-item-name">
+                              {{ item?.item_name }}
+                            </p>
+                          </div>
+                          <div class="d-flex flex-row justify-content-center">
+                            <mat-icon
+                              style="
+                                font-size: 20pt;
+                                color: #e93119;
+                                cursor: pointer;
+                              "
+                              (click)="removeItemFromOrder(item)"
+                              >do_not_disturb_on</mat-icon
+                            >
+                            <p class="px-3 mb-0" style="font-weight: 500">
+                              {{ item?.quantity }}
+                            </p>
+                            <mat-icon
+                              style="
+                                font-size: 20pt;
+                                color: #00a94f;
+                                cursor: pointer;
+                              "
+                              (click)="addItemToOrder(item)"
+                              >add_circle</mat-icon
+                            >
+                          </div>
+                        </div>
+                        <div class="w-100 d-flex justify-content-between">
+                          <p style="margin-bottom: 0; font-size: 7pt">
+                            AED
+                            <span style="font-size: 10pt; font-weight: 600">
+                              {{ item?.unit_cost | number : "1.2-2" }}
+                            </span>
+                          </p>
+                          <p
+                            style="
+                              margin-bottom: 0;
+                              font-size: 7pt;
+                              text-align: right;
+                            "
+                          >
+                            AED
+                            <span style="font-size: 10pt; font-weight: 600">{{
+                              itemTotalAmountInOrder(item) | number : "1.2-2"
+                            }}</span>
+                          </p>
+                        </div>
+                        <div class="w-100 d-flex justify-content-between">
+                          <p class="ordered-item-shopfor">
+                            Category: {{ item?.category_name }}
+                          </p>
+                          <p
+                            class="remove-from-cart"
+                            (click)="removeAllItemFromOrder(item)"
+                          >
+                            Remove
+                          </p>
+                        </div>
+                        <div>
+                          <p class="ordered-item-shopfor">
+                            Vendor: {{ item?.vendor_name }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Cart Footer -->
+        <footer class="cart-footer" style="background-color: white">
+          <hr class="dashed" />
+          <!-- Footer Cart Total Container -->
+          <div class="cart-total-container">
+            <!-- Footer Cart Total -->
+            <div class="pb-2">
+              <div class="d-flex flex-row justify-content-between">
+                <p class="mb-0" style="font-size: 12pt; font-weight: 500">
+                  Sub Total
+                </p>
+                <p
+                  class="mb-0"
+                  style="font-size: 10pt; font-weight: 500; color: #5cb138"
+                >
+                  AED
+                  <span style="font-size: 12pt; font-weight: 600">{{
+                    orderAmount | number : "1.2-2"
+                  }}</span>
+                </p>
+              </div>
+              <hr class="my-1" />
+              <div class="d-flex flex-row justify-content-between">
+                <p class="mb-0" style="font-size: 12pt; font-weight: 500">
+                  VAT
+                </p>
+                <p
+                  class="mb-0"
+                  style="font-size: 10pt; font-weight: 500; color: #5cb138"
+                >
+                  AED
+                  <span style="font-size: 12pt; font-weight: 600">{{
+                    taxAmount | number : "1.2-2"
+                  }}</span>
+                </p>
+              </div>
+              <hr class="my-1" />
+              <div class="d-flex flex-row justify-content-between">
+                <p class="mb-0" style="font-size: 12pt; font-weight: 500">
+                  Total Amount
+                </p>
+                <p
+                  class="mb-0"
+                  style="font-size: 10pt; font-weight: 500; color: #5cb138"
+                >
+                  AED
+                  <span style="font-size: 12pt; font-weight: 600">{{
+                    calculateTotalTaxAmount() | number : "1.2-2"
+                  }}</span>
+                </p>
+              </div>
+            </div>
+            <!-- Footer Confirm Button -->
+            <div class="d-flex align-items-center justify-content-between">
+              <button
+                type="button"
+                class="btn btn-info mb-0"
+                (click)="saveOrderDialog()"
+                style="width: 100%; height: 40px"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                class="btn btn-success mb-0"
+                style="width: 100%; height: 40px"
+                (click)="openCheckoutDialog()"
+                [disabled]="disableControls"
+              >
+                View Cart
+              </button>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- Column for Product List -->
+    <div class="col-md-8 col-12 pl-0">
+      <!-- Product Filter Container -->
+      <div class="filters-container bg-white px-3 pt-3">
+        <div class="row">
+          <div class="col-4">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label class="filter-label">Select Category</mat-label>
+              <mat-select
+                placeholder="Select Category"
+                [(ngModel)]="selectedCategory"
+                name="selectedCategory"
+                (selectionChange)="onChangeCategory($event.value)"
+              >
+                <mat-option value="">Please Select</mat-option>
+                <mat-option *ngFor="let item of categories" [value]="item.Id">
+                  {{ item.CategoryName }}
+                </mat-option>
+              </mat-select>
+              <button mat-icon-button matSuffix *ngIf="selectedCategory" (click)="clearCategory($event)">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label class="filter-label">Select Catalogue</mat-label>
+              <mat-select
+                placeholder="Select Catalogue"
+                [(ngModel)]="selectedVendor"
+                name="selectedCategory"
+                (selectionChange)="onChangeVendor($event.value)"
+              >
+                <mat-option value="">Please Select</mat-option>
+                <mat-option *ngFor="let item of vendors" [value]="item.Id">
+                  {{ item.VendorName }}
+                </mat-option>
+              </mat-select>
+              <button mat-icon-button matSuffix *ngIf="selectedVendor" (click)="clearVendor($event)">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label class="filter-label">Keyword</mat-label>
+              <input
+                class="filter-text"
+                #keyword
+                matInput
+                name="selectedKeyword"
+                placeholder="Filter Product Name"
+                (input)="filterProduct(keyword.value)"
+              />
+              <button mat-icon-button matSuffix *ngIf="keyword" (click)="clearKeyword($event)">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <br />
+      <!-- Product Archive -->
+      <div class="all-products">
+        <div class="row py-2 px-3">
+          <div
+            class="col-lg-6 col-xl-4 pb-3 px-2 product-item"
+            *ngFor="let item of filteredProductMenu"
+          >
+            <div class="item-product" (click)="openProductDialog(item)">
+              <div
+                class="d-flex"
+                style="
+                  background-color: #fff;
+                  border-radius: 5px;
+                  overflow: hidden;
+                  cursor: pointer;
+                "
+              >
+                <!-- <img
+                  [src]="baseAssetUrl + item.image_url"
+                  alt="{{ item.product_name }}"
+                  class="img-responsive item-img"
+                  (error)="setDefaultImage($event)"
+                /> -->
+                <!-- <img
+                  [src]="item.category_desc"
+                  alt="{{ item.product_name }}"
+                  class="img-responsive item-img img1"
+                  (error)="setDefaultImage($event)"
+                /> -->
+                <img
+                [src]="item.image_url"
+                  alt="{{ item.product_name }}"
+                  class="img-responsive item-img img1"
+                  (error)="setDefaultImage($event)"
+                />
+                <div
+                  class="d-flex flex-column justify-content-between p-2"
+                  style="width: calc(100% - 105px)"
+                >
+                  <div>
+                    <p
+                      class="item-product-name single-line-text"
+                      matTooltip="{{ item.product_name }}"
+                    >
+                      {{ item.product_name }}
+                    </p>
+                    <p
+                      style="
+                        margin-bottom: 0px;
+                        font-size: 8pt;
+                        text-transform: uppercase;
+                      "
+                      class="single-line-text"
+                    >
+                      {{ item.item_code }}
+                    </p>
+                    <p
+                      style="
+                        margin-bottom: 0px;
+                        font-size: 8pt;
+                        text-transform: uppercase;
+                      "
+                      class="single-line-text"
+                    >
+                      {{ item.category_name }}
+                    </p>
+                    <p
+                      style="
+                        margin-bottom: 0px;
+                        font-size: 8pt;
+                        text-transform: uppercase;
+                      "
+                      class="single-line-text"
+                    >
+                      {{ item.vendor_name }}
+                    </p>
+                  </div>
+                  <p style="margin-bottom: 0; font-size: 8pt">
+                    AED
+                    <span style="font-size: 12pt; font-weight: 600">
+                      {{ item.unit_cost }}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>

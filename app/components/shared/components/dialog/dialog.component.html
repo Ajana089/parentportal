@@ -1,0 +1,18 @@
+<mat-toolbar class="admin-toolbar">
+    <mat-toolbar-row class="header-color {{title}}">
+        <div class="container-fluid">
+            <div class="row">
+                <button mat-icon-button (click)="closeDialog()">
+                    <mat-icon>keyboard_backspace</mat-icon>
+                </button>
+                <div class="col-md-11 col-10 menu-title {{title}}">
+                    <ng-template *ngIf="headerPortal && !title" [cdkPortalOutlet]="headerPortal"></ng-template>
+                    <span>{{title}}</span>
+                </div>
+            </div>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div style="width: 100%; height: auto;">
+    <ng-template [cdkPortalOutlet]="portal"></ng-template>
+</div>

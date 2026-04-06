@@ -1,0 +1,129 @@
+<div class="main-content" style="    overflow: hidden;">
+  <section class="container-fluid white-bg">
+
+    <div class="slider-container">
+        <div class="slider-track">
+
+             <span class="slider-text" *ngFor="let item of textList">
+               Welcome to {{ school_name }}
+            </span>
+
+        </div>
+        </div>
+
+    <div class="row">
+
+        <div class="col-7">
+
+            <!-- <img  src="../../../../../assets/img/ISCSMUWBuilding.jpg" class="img-fluid w-100 h-100" /> -->
+
+            <video  #videoPlayer class="img-fluid w-100 h-100" autoplay muted loop controls>
+                <source src="../../../../../assets/img/Video/{{schoolVideo}}" type="video/mp4" >
+                Your browser does not support the video tag.
+            </video>
+
+        </div>
+
+        <div class="col-5">
+            <div class="card">
+
+                <!-- <div class="queue-item d-flex align-items-center justify-content-between" style="color: #fff; background-color: #607c98 !important;">
+                    <div class="queue-number d-flex align-items-center"> Token No</div>
+                    <div class="queue-number"> Window</div>
+                </div>
+                 <div class="queue-item d-flex align-items-center justify-content-between" 
+                 *ngFor="let ticket of tickets"
+                 [class.blink]="ticket.isCalled" style="">
+
+                    <div class="queue-number d-flex align-items-center"> {{ ticket.TicketNo }}</div>
+                    <div class="queue-number"> {{ ticket.CounterName }}</div>
+                 </div> -->
+
+                 <!-- Header Row -->
+
+                 <div class="row">
+
+                    <div class="col-6">
+                        <div class="queue-item d-flex align-items-center justify-content-between flex-fill me-2" style="color: #fff; background-color: #607c98 !important;">
+                        <div class="queue-number d-flex align-items-center">Token No</div>
+                        <div class="queue-number">Window</div>
+                        
+             
+                    </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div *ngIf="totaltickets > 1" class="queue-item d-flex align-items-center justify-content-between flex-fill" style="color: #fff; background-color: #989560 !important;">
+                        <div class="queue-number d-flex align-items-center">Token No</div>
+                        <div class="queue-number">Window</div>
+                        
+                
+                    </div>
+                    </div>
+
+                 </div>
+
+                 <div class="row">
+
+                    <div class="col-6" *ngFor="let ticket of tickets">
+
+                        <div class="queue-item d-flex align-items-center justify-content-between flex-fill me-2" [class.blink]="ticket.isCalled">
+                            <div class="queue-number d-flex align-items-center"> {{ ticket.TicketNo }}</div>
+                            <div class="queue-number"> {{ ticket.CounterName }}</div>
+                        </div>
+
+                    </div>
+
+                 </div>
+
+<!-- 
+                 <div class="d-flex w-100">
+
+
+                    <div class="queue-item d-flex align-items-center justify-content-between flex-fill me-2" style="color: #fff; background-color: #607c98 !important;">
+                        <div class="queue-number d-flex align-items-center">Token No</div>
+                        <div class="queue-number">Window</div>
+                        
+             
+                    </div>
+
+                    <div *ngIf="totaltickets > 1" class="queue-item d-flex align-items-center justify-content-between flex-fill" style="color: #fff; background-color: #989560 !important;">
+                        <div class="queue-number d-flex align-items-center">Token No</div>
+                        <div class="queue-number">Window</div>
+                        
+                
+                    </div>
+                 </div> -->
+
+                
+
+     
+                <!-- <ng-container *ngFor="let ticketPair of tickets | slicePairs">
+                    <div class="d-flex w-100 mb-2">
+
+                        <div class="queue-item d-flex align-items-center justify-content-between flex-fill me-2"
+                            [class.blink]="ticketPair[0]?.isCalled"
+                            >
+                            <div class="queue-number d-flex align-items-center">{{ ticketPair[0]?.TicketNo }}</div>
+                            <div class="queue-number">{{ ticketPair[0]?.CounterName }}</div>
+                        </div>
+
+     
+                        <div class="queue-item d-flex align-items-center justify-content-between flex-fill"
+                           
+                            [class.blink]="ticketPair[1]?.isCalled"
+                           >
+                            <div class="queue-number d-flex align-items-center">{{ ticketPair[1]?.TicketNo }}</div>
+                            <div class="queue-number">{{ ticketPair[1]?.CounterName }}</div>
+                        </div>
+                    </div>
+                </ng-container> -->
+                 
+            </div>
+        </div>
+
+    </div>
+</section>
+</div>
+
+<!-- e1e1e1  607c98 -->

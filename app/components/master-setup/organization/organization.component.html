@@ -1,0 +1,15 @@
+<div class="modules-grid" id="modulesGrid">
+  <div *ngFor="let item of masterSetup">
+    <div
+      class="module-card {{ item.theme }}"
+      [routerLink]="item.route"
+      routerLinkActive="active"
+    >
+      <div class="card-glow"></div>
+      <div class="card-icon-wrap">
+        <i class="{{ item.icon }}"></i>
+      </div>
+      <div class="card-title">{{ item.title }}</div>
+    </div>
+  </div>
+</div>

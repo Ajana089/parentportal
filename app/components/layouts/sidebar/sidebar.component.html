@@ -1,0 +1,146 @@
+<nav
+  class="sidebar"
+  [class.collapsed]="layout.sidebarCollapsed()"
+  [class.mobile-open]="layout.mobileSidebarOpen()"
+>
+  <!-- Brand -->
+  <div class="sidebar-brand">
+    <a href="#" class="simple-text logo-mini">
+      <div class="logo-img">
+        <img
+          [class.brand-collapsed]="!layout.sidebarCollapsed()"
+          src="./assets/img/conmix-icon.svg"
+          alt="Conmix CRM"
+          width="100px "
+        />
+        <img
+          [class.brand-collapsed]="layout.sidebarCollapsed()"
+          src="./assets/img/logo.svg"
+          alt="Conmix CRM"
+          width="100px "
+        />
+      </div>
+    </a>
+  </div>
+
+  <!-- Navigation -->
+  <div class="sidebar-nav">
+    <!-- Main -->
+    <div class="nav-section-label">Main</div>
+    <ng-container *ngFor="let item of navItems">
+      <!-- With children -->
+      <div class="nav-item-wrap" *ngIf="item.children">
+        <button class="nav-link-item" (click)="toggleMenu(item.label)">
+          <span class="nav-icon"><i class="fa-solid {{ item.icon }}"></i></span>
+          <span class="nav-label">{{ item.label }}</span>
+          <i
+            class="fa-solid fa-chevron-right nav-arrow"
+            [class.open]="isOpen(item.label)"
+          ></i>
+        </button>
+        <div class="submenu" [class.open]="isOpen(item.label)">
+          <a
+            class="submenu-link"
+            *ngFor="let child of item.children"
+            [routerLink]="child.route"
+            routerLinkActive="active"
+            (click)="onNavClick()"
+          >
+            {{ child.label }}
+          </a>
+        </div>
+      </div>
+      <!-- Without children -->
+      <div class="nav-item-wrap" *ngIf="!item.children">
+        <a
+          class="nav-link-item"
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          (click)="onNavClick()"
+        >
+          <span class="nav-icon"><i class="fa-solid {{ item.icon }}"></i></span>
+          <span class="nav-label">{{ item.label }}</span>
+        </a>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- User Footer -->
+  <div class="sidebar-footer">
+    <div class="user-avatar-sm">A</div>
+    <div class="user-info-sm">
+      <div class="user-name-sm">{{ first_name }}</div>
+      <div class="user-role-sm">Administrator</div>
+    </div>
+    <button class="logout-btn" title="Sign out" (click)="logout()">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- <div class="logo">
+  <a href="#" class="simple-text logo-mini">
+    <div class="logo-img">
+      <img
+        src="./assets/img/logo.svg"
+        alt="Conmix CRM"
+        width="150px "
+      />
+    </div>
+  </a>
+</div>
+<div class="sidebar-wrapper">
+  <ul class="nav">
+    <ng-container *ngFor="let menuItem of menuItems">
+      <li
+        routerLinkActive="active"
+        *ngIf="menuItem.IsSubMenu === 1"
+        class="isSidebarMenu nav-item bg-menu-item"
+      >
+        <a href="javascript:void(0);" (click)="toggleSubMenu($event, menuItem)">
+          <div class="d-flex justify-content-between align-items-center bg-menu-item">
+            <div class="d-flex w-100">
+              <div class="flex-grow-1">
+                <i class="now-ui-icons bg-menu-item {{ menuItem.icon }}"></i>
+                <p class="bg-menu-item">{{ menuItem.Text }}</p>
+              </div>
+              <i
+                class="now-ui-icons bg-menu-item"
+                style="float: none; flex-grow: 1;text-align: left;padding-left: 15px;"
+                [ngClass]="{
+                  'arrows-1_minimal-down': menuItem.showSubMenu,
+                  'arrows-1_minimal-right': !menuItem.showSubMenu
+                }"
+              ></i>
+            </div>
+          </div>
+        </a>
+        <ul class="submenu mt-2" *ngIf="menuItem.showSubMenu">
+          <ng-container *ngFor="let childItem of menuItems">
+            <li
+              *ngIf="menuItem.Id === childItem.ParentID"
+              routerLinkActive="active"
+              class="nav-item bg-menu-item"
+            >
+              <a [routerLink]="[childItem.Page]">
+                <i class="now-ui-icons bg-menu-item {{ childItem.icon }}"></i>
+                <p class="bg-menu-item" style="font-size: 9pt">{{ childItem.Text }}</p>
+              </a>
+            </li>
+          </ng-container>
+        </ul>
+      </li>
+      <li
+        *ngIf="menuItem.ParentID === 1 && menuItem.IsSubMenu === 0"
+        routerLinkActive="active"
+        class="isSidebarMenu nav-item bg-menu-item"
+        (click)="onButtonGroupClick($event)"
+      >
+        <a [routerLink]="[menuItem.Page]">
+          <i class="now-ui-icons bg-menu-item {{ menuItem.icon }}"></i>
+          <p class="bg-menu-item">{{ menuItem.Text }}</p>
+        </a> 
+      </li>
+    </ng-container>
+  </ul>
+</div> -->

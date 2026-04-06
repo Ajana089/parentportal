@@ -1,0 +1,247 @@
+<div class="main-content">
+    <section class="container-fluid white-bg">
+      <form (change)="onFormValueChange()">
+        <div>
+          <div class="row">
+
+            <div class="col-4">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label class="filter-label">Selected Category</mat-label>
+                <mat-select
+                  placeholder="Select Category"
+                  [(ngModel)]="selectedCategory"
+                  name="selectedCategory"
+                  (selectionChange)="onChangeCategory($event.value)"
+                >
+                  <mat-option value="">All</mat-option>
+                  <mat-option *ngFor="let item of categories" [value]="item.Id">
+                    {{ item.CategoryName }}
+                  </mat-option>
+                </mat-select>
+                <button mat-icon-button matSuffix *ngIf="selectedCategory" (click)="clearCategory($event)">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+  
+            <div class="col-4">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label class="filter-label">Selected Catalogue</mat-label>
+                <mat-select
+                  placeholder="Select Catalogue"
+                  [(ngModel)]="selectedVendor"
+                  name="selectedCategory"
+                  (selectionChange)="onChangeVendor($event.value)"
+                >
+                  <mat-option value="">All</mat-option>
+                  <mat-option *ngFor="let item of vendors" [value]="item.Id">
+                    {{ item.VendorName }}
+                  </mat-option>
+                </mat-select>
+                <button mat-icon-button matSuffix *ngIf="selectedVendor" (click)="clearVendor($event)">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div class="col-4">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label class="filter-label">Keyword</mat-label>
+                <input
+                  class="filter-text"
+                  #keyword
+                  matInput
+                  name="selectedKeyword"
+                  placeholder="Filter Product Name"
+                  (input)="filterProduct(keyword.value)"
+                />
+                <button mat-icon-button matSuffix *ngIf="keyword" (click)="clearKeyword($event)">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+  
+          </div>
+  
+          <div class="row d-flex justify-content-end">
+            <div class="col-md-auto col-sm-2 col">
+              <a class="btn btn-success" (click)="openProduct()">
+                <p class="mb-0">Create New Product</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+    <div class="container-fluid product mt-5">
+      <div class="mat-elevation-z8">
+        <mat-form-field class="input-search" style="float: right; width: 350px">
+          <mat-label>Search</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+        </mat-form-field>
+        <div class="table-container">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            matSort
+            (matSortChange)="announceSortChange($event)"
+          >
+            <!-- Order Number Column -->
+            <ng-container matColumnDef="category_name">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by category_name"
+              >
+              Category
+              </th>
+              <td mat-cell *matCellDef="let element">{{ element.category_name }}</td>
+            </ng-container>
+  
+            <!-- Order Date Column -->
+            <ng-container matColumnDef="vendor_name">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by vendor_name"
+              >
+                Catalogue
+              </th>
+              <td mat-cell *matCellDef="let element">{{ element.vendor_name }}</td>
+            </ng-container>
+  
+            <!-- Status Column -->
+            <ng-container matColumnDef="product_name">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by product_name"
+              >
+                Product
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.product_name }}
+              </td>
+            </ng-container>
+  
+            <!-- Family Number Column -->
+            <ng-container matColumnDef="item_type">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by item_type"
+              >
+              Item Type
+              </th>
+              <!-- <td mat-cell *matCellDef="let element">{{ element.family_no }}</td> -->
+              <td mat-cell *matCellDef="let element">
+                {{ element.item_type }}
+              </td>
+            </ng-container>
+  
+            <!-- Total Column -->
+            <ng-container matColumnDef="grade_desc">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by grade_desc"
+              >
+                Grade
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.grade_desc }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="unit_cost_incl_vat">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by unit_cost_incl_vat"
+              >
+                Price
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.unit_cost_incl_vat | number : "1.2-2" }}
+              </td>
+            </ng-container>
+  
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element">
+                <div class="d-flex justify-content-around align-items-center">
+                  <!-- <a *ngIf="roleId !== 6" [href]="'/home'" style="text-decoration: none;">
+                  <mat-icon
+                    style="
+                      font-size: 24px;
+                      color: #edbe15;
+                      cursor: pointer;
+                      margin-right: 10px;
+                    "
+                  >edit</mat-icon>
+                </a> -->
+                  <mat-icon
+                    *ngIf="element.status_description == 'Draft'"
+                    style="
+                      font-size: 24px;
+                      color: #edbe15;
+                      cursor: pointer;
+                      margin-right: 10px;
+                    "
+                    (click)="editOrder(element)"
+                    >edit</mat-icon
+                  >
+  
+                  <!-- (click)="openViewOrderDialog(element)" -->
+                  <mat-icon
+                    *ngIf="element.status_description != 'Draft'"
+                    style="
+                      font-size: 24px;
+                      color: #198754;
+                      cursor: pointer;
+                      margin-right: 10px;
+                    "
+                    (click)="openViewOrderDialog(element)"
+                    >remove_red_eye</mat-icon
+                  >
+                  <mat-icon
+                    *ngIf="element.status_description == 'Draft'"
+                    style="font-size: 24px; color: #ee2e2e; cursor: pointer"
+                    (click)="deleteOrder(element)"
+                    >delete</mat-icon
+                  >
+                  <!-- <mat-icon
+                    *ngIf="element.status_description != 'Draft'"
+                    style="font-size: 24px; color: #0dcaf0; cursor: pointer"
+                    (click)="printDialog(element)"
+                    >local_printshop</mat-icon
+                  > -->
+                </div>
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+        <mat-paginator
+          [pageSizeOptions]="[10, 20, 30]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="loading" class="cssload-container">
+    <div class="cssload-speeding-wheel"></div>
+  </div>
+  

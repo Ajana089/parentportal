@@ -1,0 +1,63 @@
+
+<div class="main-content" style="    overflow: hidden;">
+  <section class="container white-bg">
+    <div class="row">
+
+        <div class="col-12" *ngIf="!is_submitted">
+            <form  [formGroup]="studentForm">
+
+                <div class="card">
+                    <h4>Find Your Appointment</h4>
+                    <label for="familyNumber">Family Number:</label>
+                    <div class="input-group">
+                        <input type="text" formControlName="familyno" placeholder="Enter Family Number" />
+                        <button type="submit" (click)="search()">Search Appointment</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+
+        <!-- <div class="message" *ngIf="is_submitted && appointment_id == 0" style="margin-top: 20px; text-align: center;">
+            <strong>There is no appointment schedule today for Family # {{ familyno }}</strong>
+            <br>
+            <br>
+             <button class="serve-btn" (click)="selectQueue()">Select Queue</button>
+        </div>
+
+        <div class="details" *ngIf="is_submitted && appointment_id > 0" style="margin-top: 20px;">
+            <div><strong>Appointment Booked Details:</strong></div>
+            <br>
+            <div><strong>Family ID:</strong> {{ familyno }}</div>
+            <div><strong>Appointment Date:</strong> {{ appointment.AppointmentDate | date: 'dd-MMM-yy HH:mm:ss' }}</div>
+            <br>
+              <button class="serve-btn" (click)="selectQueue()">Select Queue</button>
+        </div> -->
+
+
+    </div>
+
+    <div class="card details" *ngIf="is_submitted">
+      <h4>Appointment Details</h4>
+
+      <p *ngIf="is_submitted && appointment_id == 0" style="color: red; font-weight: 500;"> There is no appointment schedule today! </p>
+
+      <div class="detail-row">
+        <span>Family ID</span>
+        <strong>{{ familyno }}</strong>
+      </div>
+
+      <div class="detail-row" *ngIf="is_submitted && appointment_id > 0">
+        <span>Date & Time</span>
+        <strong>{{ appointment.AppointmentDate | date: 'dd-MMM-yy HH:mm:ss' }}</strong>
+      </div>
+
+      <button class="btn secondary full-width" (click)="selectQueue()">
+        Select Service
+      </button>
+
+       <button type="submit" (click)="goback()">Go Back</button>
+    </div>
+
+    </section>
+</div>

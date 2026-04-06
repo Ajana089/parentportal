@@ -1,0 +1,342 @@
+<div class="main-content" style="display: flex; flex-direction: column">
+  <section class="container-fluid white-bg">
+    <form>
+      <div>
+        <div class="row">
+
+          <div class="col-sm col-md-4">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label class="filter-label">Year</mat-label>
+              <mat-select
+                placeholder="Select Year"
+                [(ngModel)]="year"
+                name="year"
+              >
+              <mat-option value="">Please Select</mat-option>
+              <!-- <mat-option value="2023">2023</mat-option>
+              <mat-option value="2024">2024</mat-option> -->
+              <mat-option value="2025">2025</mat-option>
+              <mat-option value="2026">2026</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        
+          <div class="col-md-auto col-sm-2 col">
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="searchOrders()"
+            >
+              Search Sales
+            </button>
+          </div>
+          <div class="col-md-auto col-sm-2 col">
+            <button
+              type="button"
+              (click)="exporter.exportTable('csv')"
+              class="btn btn-warning"
+            >
+              Export
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+  <div
+    class="container-fluid product mt-5"
+    style="display: flex; flex-direction: column; flex-grow: 1"
+  >
+    <div class="w-100 d-flex justify-content-end">
+      <mat-form-field class="input-search" style="float: right; width: 350px">
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+      </mat-form-field>
+    </div>
+    <div class="mat-elevation-z8" style="overflow: auto; flex-grow: 1">
+      <table
+        mat-table
+        matTableExporter
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+        #exporter="matTableExporter"
+      >
+
+         <ng-container matColumnDef="seq">
+          <th mat-header-cell *matHeaderCellDef>Sr #</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+
+        <!-- Order Number Column -->
+        <ng-container matColumnDef="Store_ID">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Store_ID"
+          >
+          Store ID
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Store_ID }}
+          </td>
+        </ng-container>
+
+        <!-- Order Date Column -->
+        <ng-container matColumnDef="Store_Name">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Store_Name"
+          >
+            Store Name
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.Store_Name }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IntegrationStartDate">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by IntegrationStartDate"
+          >
+            Integration Start Date
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.IntegrationStartDate | date: 'dd-MMM-yyyy' }}
+          </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="Jan">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Jan"
+          >
+           Jan
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Jan == 0 || element.Jan == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Jan == 0 || element.Jan == undefined">{{ element.Jan || 0 }}</span>
+            <span *ngIf="element.Jan > 0" >
+                {{ element.Jan }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Feb">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Feb"
+          >
+           Feb
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Feb == 0 || element.Feb == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Feb == 0 || element.Feb == undefined">{{ element.Feb || 0 }}</span>
+            <span *ngIf="element.Feb > 0" >
+                {{ element.Feb }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Mar">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Mar"
+          >
+           Mar
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Mar == 0 || element.Mar == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Mar == 0 || element.Mar == undefined">{{ element.Mar || 0 }}</span>
+            <span *ngIf="element.Mar > 0" >
+                {{ element.Mar }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Apr">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Apr"
+          >
+           Apr
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Apr == 0 || element.Apr == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Apr == 0 || element.Apr == undefined">{{ element.Apr || 0 }}</span>
+            <span *ngIf="element.Apr > 0" >
+                {{ element.Apr }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="May">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by May"
+          >
+           May
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.May == 0 || element.May == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.May == 0 || element.May == undefined">{{ element.May || 0 }}</span>
+            <span *ngIf="element.May > 0" >
+                {{ element.May }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Jun">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Jun"
+          >
+           Jun
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Jun == 0 || element.Jun == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Jun == 0 || element.Jun == undefined">{{ element.Jun || 0 }}</span>
+            <span *ngIf="element.Jun > 0" >
+                {{ element.Jun }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Jul">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Jul"
+          >
+           Jul
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Jul == 0 || element.Jul == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Jul == 0 || element.Jul == undefined">{{ element.Jul || 0 }}</span>
+            <span *ngIf="element.Jul > 0" >
+                {{ element.Jul }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Aug">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Aug"
+          >
+           Aug
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Aug == 0 || element.Aug == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Aug == 0 || element.Aug == undefined">{{ element.Aug || 0 }}</span>
+            <span *ngIf="element.Aug > 0" >
+                {{ element.Aug }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Sep">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Sep"
+          >
+           Sep
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Sep == 0 || element.Sep == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Sep == 0 || element.Sep == undefined">{{ element.Sep || 0 }}</span>
+            <span *ngIf="element.Sep > 0" >
+                {{ element.Sep }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Oct">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Oct"
+          >
+           Oct
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Oct == 0 || element.Oct == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Oct == 0 || element.Oct == undefined">{{ element.Oct || 0 }}</span>
+            <span *ngIf="element.Oct > 0" >
+                {{ element.Oct }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Nov">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Nov"
+          >
+           Nov
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Nov == 0 || element.Nov == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Nov == 0 || element.Nov == undefined">{{ element.Nov || 0 }}</span>
+            <span *ngIf="element.Nov > 0" >
+                {{ element.Nov }}
+            </span>        
+        </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Dec">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by Dec"
+          >
+           Dec
+          </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="{ 'background-color': (element.Dec == 0 || element.Dec == undefined) ? '#eb6f6f' : 'transparent' }">
+            <span *ngIf="element.Dec == 0 || element.Dec == undefined">{{ element.Dec || 0 }}</span>
+            <span *ngIf="element.Dec > 0" >
+                {{ element.Dec }}
+            </span>        
+        </td>
+        </ng-container>
+
+        
+
+      
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <mat-paginator
+      [pageSizeOptions]="[50, 100, 200]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</div>
+
+<div *ngIf="loading" class="cssload-container">
+  <div class="cssload-speeding-wheel"></div>
+</div>

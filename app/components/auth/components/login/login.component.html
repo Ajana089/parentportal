@@ -1,0 +1,124 @@
+
+
+<div class="d-flex">
+ <div class="brand-panel justify-content-center align-items-center" style="min-height: 100vh;">
+  <!-- <div class="pattern"></div> -->
+    <div class="login-card">
+
+      <!-- Queue Management System -->
+      
+      <div class="text-center" style="margin-bottom: 20px;">
+        <img  src="../../../../../assets/img/logo.svg" style="width: 250px; border-radius: 0;"></div>
+
+      <form  [formGroup]="authenticationForm">
+        <label>USERNAME</label>
+        
+           <input
+              
+                      id="inputEmail"
+                      type="text"
+                      name="username"
+                      matInput
+                      placeholder="Username"
+                      formControlName="user_name"
+                      required=""
+                      autofocus=""
+                    />
+          
+        <label>PASSWORD</label>
+
+                    <input
+                      class="filter-text"
+                      matInput
+                      id="inputPassword"
+                      [type]="showPassword ? 'text' : 'password'"
+                      formControlName="password"
+                      placeholder="Password"
+                      required=""
+                    />
+
+        <button type="submit" (click)="login()">LOGIN&nbsp;&nbsp;</button>
+      </form>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<div class="login d-flex justify-content-center align-items-center">
+  <div class="dynamic-width">
+    <div class="p-2">
+      <div class="row gy-3">
+      
+        <div class="col-12 col-lg-5 order-last d-flex">
+          <div class="d-flex align-items-center justify-content-center flex-column flex-grow-1">
+            <div class="d-flex justify-content-center align-items-center">
+           
+
+            </div>
+            <div class="p-5 w-100">
+              <form
+                [formGroup]="authenticationForm"
+                class="signin-form"
+              >
+            <h4 class="text-center">Welcome to Queue Portal</h4>
+                <div class="form-group">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label class="filter-label">Username</mat-label>
+                    <input
+                      class="filter-text"
+                      id="inputEmail"
+                      type="email"
+                      name="username"
+                      matInput
+                      placeholder="Username"
+                      formControlName="username"
+                      required=""
+                      autofocus=""
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="form-group">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label class="filter-label">Password</mat-label>
+                    <input
+                      class="filter-text"
+                      matInput
+                      id="inputPassword"
+                      [type]="showPassword ? 'text' : 'password'"
+                      formControlName="password"
+                      placeholder="Password"
+                      required=""
+                    />
+                  </mat-form-field>
+                  <span class="show-pass-icon" (click)="isShowPassword()">
+                    <mat-icon *ngIf="showPassword">visibility</mat-icon>
+                    <mat-icon *ngIf="!showPassword">visibility_off</mat-icon>
+                  </span>
+                </div>
+
+                <div class="form-group">
+                  <button class="form-control login-button" style="height: 50px;" (click)="login()">
+                    LOGIN
+                  </button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div> -->
